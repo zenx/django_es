@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<div id="slideshow" class="scroll"  data-image="{% static "img/slideshow_bg1.jpg" %}">
+    <h1>Curso de iniciación a Django</h1>
+    <p class="alt">Madrid</p>
+    <p>20 Feb. - 20 Mar.</p>
+</div>
+
+<div class="row">
+    <div class="large-7 medium-7 small-12 columns">
+        <h2>¡Descubre Django!</h2>
+        <h3>Django es un entorno de desarrollo web escrito en Python que fomenta el desarrollo rápido y el diseño pragmático.</h3>
+    
+        <div class="row">
+            <div class="large-2 columns pt10 text-center">
+                <i class="fa fa-bolt fa-4x g"></i>
+            </div>
+            <div class="large-10 columns">
+                <h4>Rápido</h4>
+                <p>Django está diseñado para que los desarrolladores desarrollen aplicaciones desde la conceptualización hasta su finalización lo más ràpido posible.</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="large-2 columns pt10 text-center">
+                <i class="fa fa-lock fa-4x g"></i>
+            </div>
+            <div class="large-10 columns">
+                <h4>Seguro y robusto</h4>
+                <p>Django previene  a los desarrolladores de muchos errores de seguridad común.</p>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="large-2 columns pt10 text-center">
+                <i class="fa fa-dashboard fa-4x g"></i>
+            </div>
+            <div class="large-10 columns">
+                <h4>Escalable</h4>
+                <p>Django previene  a los desarrolladores de muchos errores de seguridad común.</p>
+            </div>
+        </div>
+    </div>
+    <div class="large-5 medium-5 small-12 columns">
+        <div class="box mb30">
+            <a href="" class="button full-width">Descargar última versión: 1.7.1{{ ultima_version }}</a>
+            <a href="">Documentación</a>
+        </div>
+        
+        <h4>Oferta de empleo</h4>
+        <div class="box green">
+            <a href="">Desarrollador Python</a> en
+        </div>
+        
+        <h4>Profesional destacado</h4>
+        <div class="box green">
+            <a href="">Zenx IT</a>
+            <p>Tenemos el mayor conocimiento en Django que puedas encontrar.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <h2>Lo último en el Blog</h2>
+        <div class="row">
+            <div class="large-6 medium-6 small-12 columns">
+                {% for entrada in ultimas_entradas %}
+                {% endfor %}
+            </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <h2>Libro recomendado</h2>
+        <div class="row">
+            <div class="large-3 columns pb40">
+                <a href=""><img src="https://d255esdrn735hr.cloudfront.net/sites/default/files/imagecache/ppv4_main_book_cover/6898OS_Web%20Development%20with%20Django%20Cookbook_Cover_0.jpg"></a>
+            </div>
+            <div class="large-9 columns">
+                <h3><a href="">Web Development with Django Cookbook</a></h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,104 @@
+{% load i18n %}
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}Django.es{% endblock %}</title>
+        <link rel="stylesheet" href="{% static "css/foundation.min.css" %}" />
+        <link rel="stylesheet" href="{% static "css/base.css" %}" />
+        <script src="{% static "js/modernizr.js" %}"></script>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    </head>
+    <body class="body-{{ seccion }}">
+        <div id="header-wrap">
+            <div id="header">
+                <div class="row">
+                    <div class="large-4 medium-4 small-12 columns">
+                        <span id="expand-menu" class="icon menu show-for-small-only">☰</span>
+                        <a href="/"><img src="{% static "img/django_es_logo.png" %}" alt="Django en Español"></a>
+                    </div>
+                    <div class="large-8 medium-8 columns hide-for-small-only text-right tagline">
+                        El framework de desarrollo web para perfeccionistas con plazos exigentes
+                    </div>
+                </div>
+            </div>
+            <div id="subheader" class="hide-for-small-only">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <ul id="menu">
+                            <li {% if seccion == "intro" %}class="selected"{% endif %}><a href="{% url "intro" %}">Qué es Django</a></li>
+                            <li {% if seccion == "blog" %}class="selected"{% endif %}><a href="#">Blog</a></li>
+                            <li {% if seccion == "descarga" %}class="selected"{% endif %}><a href="{% url "descarga" %}">Descarga</a></li>
+                            <li {% if seccion == "docs" %}class="selected"{% endif %}><a href="#">Documentación</a></li>
+                            <li {% if seccion == "libros" %}class="selected"{% endif %}><a href="#">Libros</a></li>
+                            <li {% if seccion == "empleo" %}class="selected"{% endif %}><a href="#">Empleo</a></li>
+                            <li {% if seccion == "cursos" %}class="selected"{% endif %}><a href="#">Cursos</a></li>
+                            <li {% if seccion == "profesionales" %}class="selected"{% endif %}><a href="#">Profesionales</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+      
+        <div class="show-for-small-only">
+            <ul id="mini-menu" class="hide">
+                <li {% if seccion == "intro" %}class="selected"{% endif %}><a href="{% url "intro" %}">Qué es Django</a></li>
+                <li {% if seccion == "blog" %}class="selected"{% endif %}><a href="#">Blog</a></li>
+                <li {% if seccion == "descarga" %}class="selected"{% endif %}><a href="{% url "descarga" %}">Descarga</a></li>
+                <li {% if seccion == "docs" %}class="selected"{% endif %}><a href="#">Documentación</a></li>
+                <li {% if seccion == "libros" %}class="selected"{% endif %}><a href="#">Libros</a></li>
+                <li {% if seccion == "empleo" %}class="selected"{% endif %}><a href="#">Empleo</a></li>
+                <li {% if seccion == "cursos" %}class="selected"{% endif %}><a href="#">Cursos</a></li>
+                <li {% if seccion == "profesionales" %}class="selected"{% endif %}><a href="#">Profesionales</a></li>
+            </ul>    
+        </div>
+    </div>
+        
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>  
+    
+    <div id="footer">
+        <div class="row">
+            <div class="large-12 columns">
+                <span class="copyright">Hecho a mano por <a href="http://zenxit.com/" target="_blank">Zenx IT</a></span>
+            </div>
+        </div>
+    </div>
+        
+    <script src="{% static "js/jquery.js" %}"></script>
+    <script src="{% static "js/foundation.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "fancybox/jquery.fancybox.pack.js" %}"></script>
+    {% block include_js %}{% endblock %}
+	<script type="text/javascript">
+        {% block js %}{% endblock %}
+        
+        $(document).foundation();
+		$(document).ready(function(){
+            /*
+            $(".fancybox").fancybox({
+                'padding' : 0,
+                'helpers': {
+                    'overlay': {
+                      'locked': false
+                    }
+                  }
+            });
+            */
+            $('#expand-menu').click(function() {
+                $(this).toggleClass('active');
+                $('#mini-menu').toggleClass('hide');
+            });
+            
+			{% block domready %}
+			{% endblock %}
+            
+		});
+        
+  </script>
+  </body>
+</html>
