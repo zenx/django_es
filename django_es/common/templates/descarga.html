@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
+{% load django_es_tags %}
 
 {% block title %}¿Qué es Django?{% endblock %}
 
 {% block content %}
+{% ultima_version_django as ultima_version %}
 <div class="row">
     <div class="large-12 columns">
         <h1>Descarga Django</h1>
@@ -13,9 +15,9 @@
 	
         	<h3>Opción 1. Obtener la última versión oficial de Django</h3>
         	<p>
-        		La última versión oficial de Django es la 1.7.4. Para conseguirla descarga primero <a href="http://www.djangoproject.com/download/1.7.4/tarball/">Django-1.7.4.tar.gz</a>. Después:</p>
-        	<pre class="literal-block"><code>tar xzvf Django-1.7.4.tar.gz
-cd Django-1.7.4
+        		La última versión oficial de Django es la {{ ultima_version }}. Para conseguirla descarga primero <a href="http://www.djangoproject.com/download/{{ ultima_version }}/tarball/">Django-{{ ultima_version }}.tar.gz</a>. Después:</p>
+        	<pre class="literal-block"><code>tar xzvf Django-{{ ultima_version }}.tar.gz
+cd Django-{{ ultima_version }}
 sudo python setup.py install</code></pre>
 	
         	<h3>Opción 2. Obtener la última versión de desarrollo</h3>
@@ -29,7 +31,7 @@ sudo python setup.py install</code></pre>
         	</p>
         	<p></p>
         	<p>
-        		Asegúrate de darte de alta en la lista de correo de Django <a href="http://groups.google.com/group/django-es">en español</a> y/o la <a href="http://groups.google.com/group/django-users">lista de correo oficial en inglés</a> donde otros usuarios de Django y los desarrolladores de Django se ayudan mutuamente. Lee el <a href="/blog/">blog de django.es</a> o suscríbete al <a href="/feeds/blog/">feed RSS</a>. También nos puedes seguir en <a href="http://twitter.com/django_es">Twitter</a> o <a href="http://identi.ca/django">Identi.ca</a>.
+        		Asegúrate de darte de alta en la lista de correo de Django <a href="http://groups.google.com/group/django-es">en español</a> y/o la <a href="http://groups.google.com/group/django-users">lista de correo oficial en inglés</a> donde otros usuarios de Django y los desarrolladores de Django se ayudan mutuamente. Lee el <a href="/blog/">blog de django.es</a> o suscríbete al <a href="/feeds/blog/">feed RSS</a>. También nos puedes seguir en <a href="http://twitter.com/django_es">Twitter</a>.
         	</p>
     </div>      
 </div>

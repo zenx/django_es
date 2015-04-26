@@ -32,7 +32,7 @@
                             <li {% if seccion == "blog" %}class="selected"{% endif %}><a href="#">Blog</a></li>
                             <li {% if seccion == "descarga" %}class="selected"{% endif %}><a href="{% url "descarga" %}">Descarga</a></li>
                             <li {% if seccion == "docs" %}class="selected"{% endif %}><a href="#">Documentación</a></li>
-                            <li {% if seccion == "libros" %}class="selected"{% endif %}><a href="#">Libros</a></li>
+                            <li {% if seccion == "libros" %}class="selected"{% endif %}><a href="{% url "libros:libro_list" %}">Libros</a></li>
                             <li {% if seccion == "empleo" %}class="selected"{% endif %}><a href="#">Empleo</a></li>
                             <li {% if seccion == "cursos" %}class="selected"{% endif %}><a href="#">Cursos</a></li>
                             <li {% if seccion == "profesionales" %}class="selected"{% endif %}><a href="#">Profesionales</a></li>

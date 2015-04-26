@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Libros sobre Django (Python){% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="large-12 columns">
+            <h1>Libros sobre Django</h1>
+            <p>Esta página hace una recopilación de libros publicados sobre Django. Si echas alguno en falta contacta con nosotros para añadirlo.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="medium-4 large-4 columns">
+            <h3>Editoriales</h3>
+            <ul class="menu">
+                <li {% if not editorial %}class="selected"{% endif %}><a href="{% url "libros:libro_list" %}">Todas</a></li>
+            {% for e in editoriales %}
+                <li {% if editorial.id == e.id %}class="selected"{% endif %}>
+                    <a href="{% url "libros:libro_list_by_editorial" e.slug %}">
+                        {{ e }} ({{ e.total_libros }})
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="medium-8 large-8 columns">
+        	{% for libro in libros %}
+        	    <a href="{{ libro.get_absolute_url }}">
+                    <img src="{{ libro.portada.url }}" alt="{{ libro.titulo }}">
+                </a>
+                <h4><a href="{{ libro.get_absolute_url }}">{{ libro.titulo }}</a></h4>
+                
+        		<p><span class="texto-secundario">por {{ libro.autor }} en {{ libro.anio }}</span></p>
+        	    {{ libro.descripcion|linebreaks }}
+        		<p><a href="{{ libro.url }}" rel="nofollow" class="button">Comprar {{ libro.titulo }}</a></p>
+        	{% endfor %}
+            {% include "pagination.html" with page=libros %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,6 +1,4 @@
-from django.shortcuts import render
 from django.views.generic.base import TemplateView
-from .utils import obtener_ultima_version_django
 
 
 class ExtraContextTemplateView(TemplateView):
@@ -10,5 +8,9 @@ class ExtraContextTemplateView(TemplateView):
         context.update(self.extra_context)
         return context
 
+"""
 def inicio(request):
-    ultima_version = obtener_ultima_version_django()
+    seccion = 'home'
+    ultima_version_django = obtener_ultima_version_django()
+    return render(request, 'inicio.html', locals())
+"""

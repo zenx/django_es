@@ -1,18 +1,23 @@
 import re
 import urllib2
+from django import template
 from django.core.cache import cache
+
+
+register = template.Library()
 
 
 DJANGO_VERSION_REGEX = r'/download/([\d.]+)/tarball/'
 DJANGO_DOWNLOAD_URL = 'https://www.djangoproject.com/download/'
 
 
-def obtener_ultima_version_django():
+@register.assignment_tag
+def ultima_version_django():
+    """
+    Recuperar la ultima version disponible de Django desde djangoproject.com.
+    """
     ultima_version = cache.get('django_version', None)
     if not ultima_version:
-        """
-        Recuperar la ultima version disponible de djangoproject.com.
-        """
         ultima_version = None
         response = urllib2.urlopen(DJANGO_DOWNLOAD_URL)
         html = response.read()

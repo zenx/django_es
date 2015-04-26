@@ -20,7 +20,7 @@ class Oferta(models.Model):
     url = models.URLField(blank=True)
     contacto = models.CharField(max_length=250, blank=True)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.titulo
         
     

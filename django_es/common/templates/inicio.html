@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
+{% load django_es_tags %}
 
 {% block title %}
 {% endblock %}
 
 {% block content %}
 <div id="slideshow" class="scroll"  data-image="{% static "img/slideshow_bg1.jpg" %}">
-    <h1>Curso de iniciación a Django</h1>
-    <p class="alt">Madrid</p>
-    <p>20 Feb. - 20 Mar.</p>
+    <h1>Django, el framework web Python</h1>
+    <p class="alt">El fram</p>
 </div>
 
 <div class="row">
@@ -48,7 +48,8 @@
     </div>
     <div class="large-5 medium-5 small-12 columns">
         <div class="box mb30">
-            <a href="" class="button full-width">Descargar última versión: 1.7.1{{ ultima_version }}</a>
+            {% ultima_version_django as ultima_version %}
+            <a href="" class="button full-width">Descargar última versión: {{ ultima_version }}</a>
             <a href="">Documentación</a>
         </div>
         

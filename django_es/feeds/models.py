@@ -11,7 +11,7 @@ class Feed(models.Model):
     class Meta:
         ordering = ("titulo",)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.titulo
 
 
@@ -22,11 +22,11 @@ class FeedItem(models.Model):
     resumen = models.TextField(blank=True)
     creado = models.DateTimeField(auto_now_add=True)
     publicado = models.DateTimeField()
-    
+
     class Meta:
         ordering = ("-publicado",)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.titulo
 
     def get_absolute_url(self):

@@ -120,9 +120,10 @@ a:hover, a:visited {
 #expand-menu {
     font-weight: normal;
     font-style: normal;
-    padding:10px 20px 0 0;
+    font-size:22px;
+    padding:8px 20px 0 0;
     float:left;
-    magin:0;
+    margin:0;
 }
 
 #expand-menu.active {
@@ -212,6 +213,28 @@ tt, code, kbd, pre, samp {
     color: #0C4B33;
     font-size: 14px;
     font-weight:normal;
+}
+
+ul.menu {
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+
+ul.menu li {
+    margin:0;
+    padding:10px;
+    font-size:13px;
+}
+
+ul.menu li.selected {
+    background:#f8f8f8;
+    border-left:6px solid #44b78b;
+}
+
+ul.menu a {
+    color:#666;
+    font-weight:bold;
 }
 
 .pt0 { padding-top:0px; }

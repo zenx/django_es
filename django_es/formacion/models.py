@@ -17,7 +17,7 @@ class Organizador(models.Model):
     nombre = models.CharField(max_length=250)
     url = models.URLField(blank=True)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.nombre
 
 
@@ -41,7 +41,7 @@ class Curso(models.Model):
     class Meta:
         ordering = ('-fecha_ini',)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.titulo
     
     def get_absolute_url(self):
@@ -59,5 +59,5 @@ class Alta(models.Model):
     class Meta:
         ordering = ('-creado')
         
-    def __unicode__(self):
+    def __str__(self):
         return self.nombre
