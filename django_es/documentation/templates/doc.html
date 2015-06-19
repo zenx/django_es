@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{{ document.relbar|safe }}
+	{{ document.body|safe }}
+	{{ document.sidebar|safe }}
+{% endblock %}
