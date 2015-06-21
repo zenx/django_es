@@ -27,15 +27,16 @@
             <div id="subheader" class="hide-for-small-only">
                 <div class="row">
                     <div class="large-12 columns">
+                        <a href="/" id="logo-mini"><img src="{% static "img/django_mini.png" %}"></a>
                         <ul id="menu">
                             <li {% if seccion == "intro" %}class="selected"{% endif %}><a href="{% url "intro" %}">Qué es Django</a></li>
-                            <li {% if seccion == "blog" %}class="selected"{% endif %}><a href="#">Blog</a></li>
+                            <li {% if seccion == "blog" %}class="selected"{% endif %}><a href="{% url "blog:entrada_list" %}">Blog</a></li>
                             <li {% if seccion == "descarga" %}class="selected"{% endif %}><a href="{% url "descarga" %}">Descarga</a></li>
                             <li {% if seccion == "docs" %}class="selected"{% endif %}><a href="#">Documentación</a></li>
                             <li {% if seccion == "libros" %}class="selected"{% endif %}><a href="{% url "libros:libro_list" %}">Libros</a></li>
-                            <li {% if seccion == "empleo" %}class="selected"{% endif %}><a href="#">Empleo</a></li>
-                            <li {% if seccion == "cursos" %}class="selected"{% endif %}><a href="#">Cursos</a></li>
-                            <li {% if seccion == "profesionales" %}class="selected"{% endif %}><a href="#">Profesionales</a></li>
+                            <li {% if seccion == "empleo" %}class="selected"{% endif %}><a href="{% url "empleo:oferta_list" %}">Empleo</a></li>
+                            <li {% if seccion == "formacion" %}class="selected"{% endif %}><a href="{% url "formacion:curso_list" %}">Cursos</a></li>
+                            <li {% if seccion == "profesionales" %}class="selected"{% endif %}><a href="">Profesionales</a></li>
                         </ul>
                     </div>
                 </div>
@@ -46,13 +47,13 @@
         <div class="show-for-small-only">
             <ul id="mini-menu" class="hide">
                 <li {% if seccion == "intro" %}class="selected"{% endif %}><a href="{% url "intro" %}">Qué es Django</a></li>
-                <li {% if seccion == "blog" %}class="selected"{% endif %}><a href="#">Blog</a></li>
+                <li {% if seccion == "blog" %}class="selected"{% endif %}><a href="{% url "blog:entrada_list" %}">Blog</a></li>
                 <li {% if seccion == "descarga" %}class="selected"{% endif %}><a href="{% url "descarga" %}">Descarga</a></li>
                 <li {% if seccion == "docs" %}class="selected"{% endif %}><a href="#">Documentación</a></li>
-                <li {% if seccion == "libros" %}class="selected"{% endif %}><a href="#">Libros</a></li>
-                <li {% if seccion == "empleo" %}class="selected"{% endif %}><a href="#">Empleo</a></li>
-                <li {% if seccion == "cursos" %}class="selected"{% endif %}><a href="#">Cursos</a></li>
-                <li {% if seccion == "profesionales" %}class="selected"{% endif %}><a href="#">Profesionales</a></li>
+                <li {% if seccion == "libros" %}class="selected"{% endif %}><a href="{% url "libros:libro_list" %}">Libros</a></li>
+                <li {% if seccion == "empleo" %}class="selected"{% endif %}><a href="{% url "empleo:oferta_list" %}">Empleo</a></li>
+                <li {% if seccion == "cursos" %}class="selected"{% endif %}><a href="{% url "formacion:curso_list" %}">Cursos</a></li>
+                <li {% if seccion == "profesionales" %}class="selected"{% endif %}><a href="">Profesionales</a></li>
             </ul>    
         </div>
     </div>
@@ -62,14 +63,24 @@
         {% endblock %}
     </div>  
     
+    <div style="background:#efefef; color:#7c7c7c; font-weight:400;">
+        <div class="row">
+            <div class="large-12 columns text-right mt10 mb10">
+                <span class="copyright">Hecho a mano por </span>
+                <a href="http://zenxit.com/" target="_blank"><img src="{% static "img/zenxit_logo.png" %}" style="width:180px;"></a>
+            </div>
+        </div>
+    </div>
     <div id="footer">
         <div class="row">
             <div class="large-12 columns">
-                <span class="copyright">Hecho a mano por <a href="http://zenxit.com/" target="_blank">Zenx IT</a></span>
+                <img src="{% static "img/python.png" %}" style="width:80px; margin:0;">
+                <span>Framework web <a href="http://www.python.org/" target="_blank">Python</a></span>
             </div>
         </div>
     </div>
         
+    
     <script src="{% static "js/jquery.js" %}"></script>
     <script src="{% static "js/foundation.min.js" %}"></script>
     <script type="text/javascript" src="{% static "fancybox/jquery.fancybox.pack.js" %}"></script>
@@ -93,6 +104,26 @@
                 $(this).toggleClass('active');
                 $('#mini-menu').toggleClass('hide');
             });
+            
+            $(window).scroll(function() {
+                if ($(window).scrollTop() > $('#header').height()) {
+                    $('#subheader').css({
+                        'position': 'fixed',
+                        'top': 0,
+                        'width': '100%',
+                        'background': 'rgba(60, 189, 140, 0.8)'
+                    });
+                    $('#logo-mini').fadeIn();
+                }
+                else {
+                    $('#subheader').css({
+                        'position': 'relative',
+                    });
+                    $('#logo-mini').hide();
+                }
+        	});
+        
+            
             
 			{% block domready %}
 			{% endblock %}

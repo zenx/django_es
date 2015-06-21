@@ -2,7 +2,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
-
+from common.models import Pais
 
 TIPO_CHOICES = (
     ('charla', 'Charla'),
@@ -27,6 +27,8 @@ class Curso(models.Model):
     organizadores = models.ManyToManyField(Organizador, related_name='cursos', blank=True)
     lugar = models.CharField(max_length=250)
     precio = models.CharField(max_length=250)
+    pais = models.ForeignKey(Pais, related_name='cursos')
+    ciudad = models.CharField(max_length=100)
     direccion = models.CharField(blank=True, max_length=250)
     descripcion = models.TextField(blank=True)
     fecha_inscripcion = models.DateField(blank=True, null=True)
@@ -45,7 +47,7 @@ class Curso(models.Model):
         return self.titulo
     
     def get_absolute_url(self):
-        return reverse('curso_detail', args=[self.slug])
+        return reverse('formacion:curso_detail', args=[self.slug])
 
 
 class Alta(models.Model):
@@ -55,9 +57,10 @@ class Alta(models.Model):
     creado = models.DateTimeField(auto_now_add=True)
     modificado = models.DateTimeField(auto_now=True)
     pagado = models.BooleanField(default=False)
+    creado = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ('-creado')
+        ordering = ('-creado',)
         
     def __str__(self):
         return self.nombre

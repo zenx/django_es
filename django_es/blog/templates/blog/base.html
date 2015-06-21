@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load blog_tags %}
+
+{% block extra_head %}
+    <link rel="alternate" type="application/rss+xml" title="Blog de Django.es" href="http://{{ request.get_host }}{% url "blog_latest_posts_feed" %}" />
+{% endblock %}
+
+{% block domready %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="red block">
+    <div class="row">
+        <div class="large-12 columns">
+            <h1 class="mb0">Blog</h1>
+        </div>
+    </div>
+</div>
+
+<div class="row mb40">
+	<div class="large-8 columns mb40">
+	    {% block section_content %}
+	    {% endblock %}
+	</div>
+	<div class="large-4 columns mb40 sidebar">
+        <div class="mb20 mt40">
+            <h3 class="mb10">Blog de django.es</h3>
+            <p>Apri</p>
+        </div>
+		
+        <div class="mt20">
+            <h3 class="mb10">Artículos recientes</h3>
+            <div class="mb30" style="overflow:auto;">
+	            {% get_ultimas_entradas 5 as ultimas_entradas %}
+            </div>
+        </div>
+    
+        <div class="mt20">
+    	    <h3 class="mb10">Etiquetas destacadas</h3>
+    	    <div class="text-right mt10"><a href="">Ver todas <span class="icon"></span></a></div>
+        </div>
+        <div class="mt20">
+            <h3 class="mb10">Archivos</h3>
+
+        </div>
+	</div>
+</div>
+{% endblock %}

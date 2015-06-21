@@ -1,3 +1,33 @@
-from django.contrib import admin
+# -*- encoding: utf-8 -*-
 
-# Register your models here.
+from django.contrib import admin
+from .models import Entrada
+from .forms import EntradaAdminForm
+
+
+def previsualizar(obj):
+    return '<a href="{}" target="_blank">Ver</a>'.format(obj.get_absolute_url())
+previsualizar.allow_tags = True
+
+
+class EntradaAdmin(admin.ModelAdmin):
+
+    def get_form(self, request, obj=None, **kwargs):
+        if not request.user.is_superuser:
+            return EntradaAdminForm
+        return super(EntradaAdmin, self).get_form(request, obj, **kwargs)
+
+    def save_model(self, request, obj, form, change):
+        if not request.user.is_superuser:
+            # un usuario sólo puede gestionar sus posts
+            obj.user = request.user
+        obj.save()
+
+    def get_queryset(self, request):
+        qs = super(EntradaAdmin, self).get_queryset(request)
+        if not request.user.is_superuser:
+            # un usuario sólo puede ver sus posts
+            return qs.filter(user=request.user)
+        return qs
+
+admin.site.register(Entrada, EntradaAdmin)

@@ -49,7 +49,7 @@
     <div class="large-5 medium-5 small-12 columns">
         <div class="box mb30">
             {% ultima_version_django as ultima_version %}
-            <a href="" class="button full-width">Descargar última versión: {{ ultima_version }}</a>
+            <a href="{% url "descarga" %}" class="button full-width">Descargar última versión: {{ ultima_version }}</a>
             <a href="">Documentación</a>
         </div>
         

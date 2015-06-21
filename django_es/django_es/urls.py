@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 # django imports
 from django.conf import settings
 from django.conf.urls import patterns, include, url
@@ -18,11 +20,11 @@ urlpatterns = patterns('',
     url(r'^descarga/$', ExtraContextTemplateView.as_view(template_name='descarga.html',
                                                          extra_context={'seccion':'descarga'}),
                                                          name='descarga'),
-    #url(r'^blog/', include('blog.urls')),
+    url(r'^blog/', include('blog.urls', namespace='blog')),
     #url(r'^docs/', include('docs.urls')),
-    #url(r'^empleo/', include('empleo.urls')),
-    #url(r'^comunidad/', include('feeds.urls')),
-    #url(r'^formacion/', include('formacion.urls')),
+    url(r'^empleo/', include('empleo.urls', namespace='empleo')),
+    url(r'^comunidad/', include('comunidad.urls', namespace='comunidad')),
+    url(r'^formacion/', include('formacion.urls', namespace='formacion')),
     url(r'^libros/', include('libros.urls', namespace='libros')),
     
     url(r'^admin/', include(admin.site.urls)),
