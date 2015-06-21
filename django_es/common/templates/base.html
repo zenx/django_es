@@ -32,7 +32,7 @@
                             <li {% if seccion == "intro" %}class="selected"{% endif %}><a href="{% url "intro" %}">Qué es Django</a></li>
                             <li {% if seccion == "blog" %}class="selected"{% endif %}><a href="{% url "blog:entrada_list" %}">Blog</a></li>
                             <li {% if seccion == "descarga" %}class="selected"{% endif %}><a href="{% url "descarga" %}">Descarga</a></li>
-                            <li {% if seccion == "docs" %}class="selected"{% endif %}><a href="#">Documentación</a></li>
+                            <li {% if seccion == "docs" %}class="selected"{% endif %}><a href="{% url "docs:document_index" %}">Documentación</a></li>
                             <li {% if seccion == "libros" %}class="selected"{% endif %}><a href="{% url "libros:libro_list" %}">Libros</a></li>
                             <li {% if seccion == "empleo" %}class="selected"{% endif %}><a href="{% url "empleo:oferta_list" %}">Empleo</a></li>
                             <li {% if seccion == "formacion" %}class="selected"{% endif %}><a href="{% url "formacion:curso_list" %}">Cursos</a></li>
