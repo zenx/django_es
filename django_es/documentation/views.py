@@ -31,6 +31,7 @@ def get_document(request, docname=None):
     except DocumentNotFoundError:
         raise Http404('Document not found.')
     return render_to_response('doc.html',
-                              {'request': request,
+                              {'seccion': 'docs',
+                               'request': request,
                                'document': document},
                               context_instance=RequestContext(request))

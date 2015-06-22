@@ -224,7 +224,6 @@ pre, .literal-block {
     font-size: 14px;
     font-size: 1.4rem;
     border: 1px solid #EAEAEA;
-    background: #F4F4F4;
     background: #f8f8f8;
     overflow: auto;
     margin: 25px 0;
@@ -290,3 +289,10 @@ p.date { font-family:Georgia, serif; color:#bbb; }
 .mb40 { margin-bottom:40px; }
 
 
+.docs-sidebar {
+    background:#f8f8f8;
+}
+
+.headerlink {
+    display:none;
+}

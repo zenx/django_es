@@ -1,7 +1,26 @@
 {% extends "base.html" %}
 
+{% block title %}{{ document.title }}{% endblock %}
+
 {% block content %}
-	{{ document.relbar|safe }}
-	{{ document.body|safe }}
-	{{ document.sidebar|safe }}
+<div class="row">
+    <div class="large-8 columns">
+	    {{ document.body|safe }}
+    </div>
+    <div class="large-4 docs-sidebar columns">
+        {{ document.relbar|safe }}
+        {{ document.sidebar|safe }}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block domready %}
+    $('h1').hover(function(){
+        $(this).children('.headerlink').fadeIn();
+    },
+    function(){
+            $(this).children('.headerlink').fadeOut();
+        }
+    );
 {% endblock %}

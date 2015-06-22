@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 import re
-import urllib
+import urllib2
 
 from django import template
 from django.core.cache import cache
@@ -23,8 +23,8 @@ def ultima_version_django():
     if not ultima_version:
         # si no está en cache recuperar última versión desde djangoproject.com
         ultima_version = None
-        response = urllib.request.urlopen(DJANGO_DOWNLOAD_URL)
-        html = response.read().decode('utf-8')
+        response = urllib2.urlopen(DJANGO_DOWNLOAD_URL)
+        html = response.read()
         ultima_version_match = re.search(DJANGO_VERSION_REGEX, html)
         if ultima_version_match:
             ultima_version = ultima_version_match.group(1)

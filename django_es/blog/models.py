@@ -50,8 +50,8 @@ class Entrada(models.Model):
     class Meta:
         ordering = ('-publicado',)
         
-    def __str__(self):
-        self.titulo
+    def __unicode__(self):
+        u'{}'.format(self.titulo)
 
     def get_absolute_url(self):
         return reverse('blog:entrada_detail', args=[self.slug])
