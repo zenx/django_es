@@ -5,6 +5,10 @@ body {
     font-weight:400;
 }
 
+body, p {
+    font-size:0.9rem;
+}
+
 strong {
     font-weight:600;
 }
@@ -222,12 +226,11 @@ a.button:hover {
 pre, .literal-block {
     border-radius:5px;
     font-size: 14px;
-    font-size: 1.4rem;
     border: 1px solid #EAEAEA;
     background: #f8f8f8;
     overflow: auto;
     margin: 25px 0;
-    padding: 10px 20px;
+    padding: 12px 20px 8px;
     color: #0C4B33;
 }
 
@@ -288,11 +291,67 @@ p.date { font-family:Georgia, serif; color:#bbb; }
 .mb30 { margin-bottom:30px; }
 .mb40 { margin-bottom:40px; }
 
+.docs-content h1 {
+    font-size:2.2rem;
+    margin-bottom:40px;
+    
+}
+
+.docs-content h2 {
+    font-size:1.8rem;
+}
 
 .docs-sidebar {
     background:#f8f8f8;
+    padding:20px;r
+}
+
+.docs-sidebar p, ul, li {
+    font-size:14px;
+    color:#666;
+}
+.docs-sidebar h3 {
+    font-size:1.1rem;
+    color:#666;
+    text-transform:uppercase;
+    border-bottom:1px solid #cfe3dc;
+    padding-bottom:10px;
+    margin-bottom:20px;
 }
 
 .headerlink {
     display:none;
+}
+
+.admonition {
+    background:#f1fff7;
+    border:1px solid #c9f0dd;
+    border-radius:5px;
+    padding:20px 20px 10px 20px;
+    margin-bottom:20px;
+}
+
+.admonition-title {
+    font-weight:600;
+    font-size:1rem;
+}
+
+.pre {
+    color:#0e9360;
+    font-weight:bold;
+}
+
+h3 code {
+    font-size:1.2rem;
+}
+
+.docs-nav {
+    border-top:1px solid #cfe3dc;
+    padding-top:20px;
+    margin-top:40px;
+}
+
+.docs-nav ul li {
+    list-style:none;
+    padding:0 4px 0 0;
 }

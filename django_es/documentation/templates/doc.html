@@ -4,14 +4,20 @@
 
 {% block content %}
 <div class="row">
-    <div class="large-8 columns">
+    <div class="large-8 columns docs-content">
 	    {{ document.body|safe }}
     </div>
-    <div class="large-4 docs-sidebar columns">
-        {{ document.relbar|safe }}
-        {{ document.sidebar|safe }}
+    <div class="large-4 columns">
+        <div class="docs-sidebar">
+            {{ document.sidebar|safe }}
+        </div>
     </div>
 </div>
+<div class="row docs-nav">
+    <div class="large-12 columns">
+        {{ document.relbar|safe }}
+    </div>
+</div>    
 {% endblock %}
 
 
