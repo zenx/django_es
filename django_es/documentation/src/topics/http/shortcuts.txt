@@ -85,6 +85,10 @@ Optional arguments
 
     The ``using`` parameter was added.
 
+.. versionchanged:: 1.7
+
+   The ``dirs`` parameter was added.
+
 .. deprecated:: 1.8
 
    The ``dirs`` parameter was deprecated.
@@ -175,6 +179,10 @@ Optional arguments
 
    The ``status`` and ``using`` parameters were added.
 
+.. versionchanged:: 1.7
+
+   The ``dirs`` parameter was added.
+
 .. deprecated:: 1.8
 
    The ``dirs`` parameter was deprecated.
@@ -226,6 +234,10 @@ This example is equivalent to::
 
    By default issues a temporary redirect; pass ``permanent=True`` to issue a
    permanent redirect.
+
+   .. versionchanged:: 1.7
+
+       The ability to use relative URLs was added.
 
 Examples
 --------

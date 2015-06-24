@@ -188,6 +188,10 @@ Note that not all changes are possible on all databases - for example, you
 cannot change a text-type field like ``models.TextField()`` into a number-type
 field like ``models.IntegerField()`` on most databases.
 
+.. versionchanged:: 1.7.1
+
+    The ``preserve_default`` argument was added.
+
 RenameField
 -----------
 
@@ -235,6 +239,11 @@ The optional ``hints`` argument will be passed as ``**hints`` to the
 :meth:`allow_migrate` method of database routers to assist them in making
 routing decisions. See :ref:`topics-db-multi-db-hints` for more details on
 database hints.
+
+.. versionchanged:: 1.7.1
+
+    If you want to include literal percent signs in a query without parameters
+    you don't need to double them anymore.
 
 .. versionchanged:: 1.8
 
@@ -305,7 +314,7 @@ model::
 This is generally the operation you would use to create
 :ref:`data migrations <data-migrations>`, run
 custom data updates and alterations, and anything else you need access to an
-ORM and/or Python code for.
+ORM and/or python code for.
 
 If you're upgrading from South, this is basically the South pattern as an
 operation - one or two methods for forwards and backwards, with an ORM and
@@ -414,8 +423,7 @@ You can take this template and work from it, though we suggest looking at the
 built-in Django operations in ``django.db.migrations.operations`` - they're
 easy to read and cover a lot of the example usage of semi-internal aspects
 of the migration framework like ``ProjectState`` and the patterns used to get
-historical models, as well as ``ModelState`` and the patterns used to mutate
-historical models in ``state_forwards()``.
+historical models.
 
 Some things to note:
 
@@ -433,16 +441,6 @@ Some things to note:
 * You might see implementations of ``references_model`` on the built-in
   operations; this is part of the autodetection code and does not matter for
   custom operations.
-
-.. warning::
-
-    For performance reasons, the :class:`~django.db.models.Field` instances in
-    ``ModelState.fields`` are reused across migrations. You must never change
-    the attributes on these instances. If you need to mutate a field in
-    ``state_forwards()``, you must remove the old instance from
-    ``ModelState.fields`` and add a new instance in its place. The same is true
-    for the :class:`~django.db.models.Manager` instances in
-    ``ModelState.managers``.
 
 As a simple example, let's make an operation that loads PostgreSQL extensions
 (which contain some of PostgreSQL's more exciting features). It's simple enough;

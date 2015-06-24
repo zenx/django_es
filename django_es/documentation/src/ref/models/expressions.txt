@@ -17,6 +17,10 @@ Django supports addition, subtraction, multiplication, division, modulo
 arithmetic, and the power operator on query expressions, using Python constants,
 variables, and even other expressions.
 
+.. versionadded:: 1.7
+
+    Support for the power operator ``**`` was added.
+
 Some examples
 =============
 
@@ -220,7 +224,7 @@ extra attribute ``field_lower`` produced, roughly, from the following SQL::
 
     SELECT
         ...
-        LOWER("db_table"."field") as "field_lower"
+        LOWER("app_label"."field") as "field_lower"
 
 See :doc:`database-functions` for a list of built-in database functions.
 

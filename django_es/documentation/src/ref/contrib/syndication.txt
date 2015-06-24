@@ -224,7 +224,7 @@ method along with the request object.
 
 Here's the code for these beat-specific feeds::
 
-    from django.contrib.syndication.views import Feed
+    from django.contrib.syndication.views import FeedDoesNotExist
     from django.shortcuts import get_object_or_404
 
     class BeatFeed(Feed):
@@ -953,6 +953,10 @@ They share this interface:
     * ``enclosure`` should be an instance of
       :class:`django.utils.feedgenerator.Enclosure`.
     * ``categories`` should be a sequence of Unicode objects.
+
+    .. versionadded:: 1.7
+
+        The optional ``updateddate`` argument was added.
 
 :meth:`.SyndicationFeed.write`
     Outputs the feed in the given encoding to outfile, which is a file-like object.

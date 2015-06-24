@@ -2,6 +2,8 @@
 System check framework
 ======================
 
+.. versionadded:: 1.7
+
 The system check framework is a set of static checks for validating Django
 projects. It detects common problems and provides hints for how to fix them.
 The framework is extensible so you can easily add your own checks.
@@ -63,8 +65,6 @@ Models
   ``<M2M field>``. Maximum length is ``<maximum length>`` for database
   ``<alias>``.
 * **models.E020**: The ``<model>.check()`` class method is currently overridden.
-* **models.E021**: ``ordering`` and ``order_with_respect_to`` cannot be used
-  together.
 
 Fields
 ~~~~~~
@@ -95,11 +95,8 @@ Fields
 * **fields.E160**: The options ``auto_now``, ``auto_now_add``, and ``default``
   are mutually exclusive. Only one of these options may be present.
 * **fields.W161**: Fixed default value provided.
-* **fields.E900**: ``IPAddressField`` has been removed except for support in
-  historical migrations.
 * **fields.W900**: ``IPAddressField`` has been deprecated. Support for it
-  (except in historical migrations) will be removed in Django 1.9. *This check
-  appeared in Django 1.7 and 1.8*.
+  (except in historical migrations) will be removed in Django 1.9.
 
 File Fields
 ~~~~~~~~~~~
@@ -184,7 +181,7 @@ that might occur as a result of a version upgrade.
   ``django.contrib.auth.middleware.AuthenticationMiddleware``, and
   ``django.contrib.messages.middleware.MessageMiddleware`` were removed from
   the defaults. If your project needs these middleware then you should
-  configure this setting. *This check was removed in Django 1.9*.
+  configure this setting.
 
 Admin
 -----
@@ -491,13 +488,3 @@ If you're using MySQL, the following checks will be performed:
 
 * **mysql.E001**: MySQL does not allow unique ``CharField``\s to have a
   ``max_length`` > 255.
-
-Templates
----------
-
-The following checks verify that your :setting:`TEMPLATES` setting is correctly
-configured:
-
-* **templates.E001**: You have ``'APP_DIRS': True`` in your
-  :setting:`TEMPLATES` but also specify ``'loaders'`` in ``OPTIONS``. Either
-  remove ``APP_DIRS`` or remove the ``'loaders'`` option.

@@ -123,7 +123,7 @@ Justin Bronn
     implementing GeoDjango, Justin obtained a deep knowledge of Django's
     internals including the ORM, the admin, and Oracle support.
 
-    Justin lives in Houston, TX.
+    Justin lives in San Francisco, CA.
 
     .. _GeoDjango: http://geodjango.org/
 
@@ -161,15 +161,15 @@ Karen Tracey
     in the Django community for his work on South, the schema migrations
     library.
 
-    Andrew lives in San Francisco, CA, USA.
+    Andrew lives in London, UK.
 
     .. _Andrew Godwin: http://www.aeracode.org/
 
 `Carl Meyer`_
-    Carl has been a Django user since 2007 (long enough to remember
-    queryset-refactor, but not magic-removal), and builds web apps at OddBird_.
-    He became a Django contributor by accident, because fixing bugs is more
-    interesting than working around them.
+    Carl has been working with Django since 2007 (long enough to remember
+    queryset-refactor, but not magic-removal), and works as a freelance
+    developer with OddBird_.  He became a Django contributor by accident,
+    because fixing bugs is more interesting than working around them.
 
     Carl lives in Rapid City, SD, USA.
 
@@ -332,6 +332,19 @@ Jeremy Dunck
     .. _bryan veloso: http://avalonstar.com/
     .. _vlogger: https://youtube.com/bryanveloso/
     .. _shoutcaster: http://twitch.tv/vlogalonstar/
+
+`Preston Holmes`_
+    Preston is a recovering neuroscientist who originally discovered Django as
+    part of a sweeping move to Python from a grab bag of half a dozen
+    languages. He was drawn to Django's balance of practical batteries included
+    philosophy, care and thought in code design, and strong open source
+    community. Currently working for Amazon Web Services, he is always looking
+    for opportunities to volunteer for community oriented education projects,
+    such as for kids and scientists (e.g. Software Carpentry).
+
+    Preston lives with his family and animal menagerie in Santa Barbara, CA, USA.
+
+    .. _Preston Holmes: http://www.ptone.com/
 
 `Simon Charette`_
     Simon is a mathematics student who discovered Django while searching for a
@@ -514,14 +527,6 @@ Daniele Procida
 
     .. _Josh Smeaton: https://github.com/jarshwah
 
-`Preston Timmons`_
-    Preston is a software developer with a background in mathematics. He enjoys
-    Django because it enables consistent, simple, and tested systems to be
-    built that even new programmers can quickly dive into. Preston lives in
-    Dallas, TX.
-
-    .. _Preston Timmons: https://github.com/prestontimmons
-
 Past team members
 =================
 
@@ -578,20 +583,6 @@ Malcolm Tredinnick
     He was an International Man of Mystery and lived in Sydney, Australia.
 
     *Malcolm passed away on March 17, 2013.*
-
-`Preston Holmes`_
-    Preston is a recovering neuroscientist who originally discovered Django as
-    part of a sweeping move to Python from a grab bag of half a dozen
-    languages. He was drawn to Django's balance of practical batteries included
-    philosophy, care and thought in code design, and strong open source
-    community. Currently working in the rent-your-infra space (aka Cloud), he
-    is always looking for opportunities to volunteer for community oriented
-    education projects, such as for kids and scientists (e.g. Software
-    Carpentry).
-
-    Preston lives with his family and animal menagerie in Santa Barbara, CA, USA.
-
-    .. _Preston Holmes: http://www.ptone.com/
 
 Matt Boersma
     Matt helped with Django's Oracle support.

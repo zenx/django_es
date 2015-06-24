@@ -71,7 +71,7 @@ copyright = 'Django Software Foundation and contributors'
 # built documents.
 #
 # The short X.Y version.
-version = '1.9'
+version = '1.8'
 # The full version, including alpha/beta/rc tags.
 try:
     from django import VERSION, get_version

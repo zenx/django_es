@@ -432,7 +432,8 @@ If you have an existing project that is using the database session
 backend, you don't have to do anything to accommodate this change.
 However, you may get a significant performance boost if you manually
 add the new index to the session table. The SQL that will add the
-index can be found by running the ``sqlindexes`` admin command::
+index can be found by running the :djadmin:`sqlindexes` admin
+command::
 
     python manage.py sqlindexes sessions
 
@@ -552,7 +553,7 @@ the policy that data inserted by custom SQL will *not* be visible
 during testing.
 
 This change only affects the testing process. You can still use custom
-SQL to load data into your production database as part of the ``syncdb``
+SQL to load data into your production database as part of the syncdb
 process. If you require data to exist during test conditions, you
 should either insert it using :ref:`test fixtures
 <topics-testing-fixtures>`, or using the ``setUp()`` method of your
@@ -690,7 +691,8 @@ more flexible ``mod_wsgi`` backend.
 If you are currently using the ``mod_python`` request handler, you
 should redeploy your Django projects using another request handler.
 :doc:`mod_wsgi </howto/deployment/wsgi/modwsgi>` is the request handler
-recommended by the Django project, but FastCGI is also supported. Support for
+recommended by the Django project, but :doc:`FastCGI
+</howto/deployment/fastcgi>` is also supported. Support for
 ``mod_python`` deployment will be removed in Django 1.5.
 
 Function-based generic views

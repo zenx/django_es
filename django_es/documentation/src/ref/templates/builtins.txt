@@ -185,17 +185,17 @@ call to ``{% cycle %}`` doesn't specify ``silent``::
     {% cycle 'row1' 'row2' as rowcolors silent %}
     {% cycle rowcolors %}
 
-.. deprecated:: 1.9
+For backward compatibility, the ``{% cycle %}`` tag supports the much inferior
+old syntax from previous Django versions. You shouldn't use this in any new
+projects, but for the sake of the people who are still using it, here's what it
+looks like::
 
-    The ``{% cycle %}`` tag supports the much inferior old syntax from previous
-    Django versions. You shouldn't use this in any new projects, but for the
-    sake of the people who are still using it, here's what it looks like::
+    {% cycle row1,row2,row3 %}
 
-        {% cycle row1,row2,row3 %}
+In this syntax, each value gets interpreted as a literal string, and there's no
+way to specify variable values. Or literal commas. Or spaces. Did we mention
+you shouldn't use this syntax in any new projects?
 
-    In this syntax, each value gets interpreted as a literal string, and there's
-    no way to specify variable values, literal commas, or spaces. Support for
-    this syntax will be removed in Django 2.0.
 
 .. templatetag:: debug
 
@@ -284,13 +284,6 @@ This tag auto-escapes variable values. You can disable auto-escaping with::
 Or if only some variables should be escaped, you can use::
 
     {% firstof var1 var2|safe var3 "<strong>fallback value</strong>"|safe %}
-
-You can use the syntax ``{% firstof var1 var2 var3 as value %}`` to store the
-output inside a variable.
-
-.. versionadded:: 1.9
-
-    The "as" syntax was added.
 
 .. templatetag:: for
 
@@ -672,8 +665,11 @@ the variable ``template_name``::
 
     {% include template_name %}
 
-The variable may also be any object with a ``render()`` method that accepts a
-context. This allows you to reference a compiled ``Template`` in your context.
+.. versionchanged:: 1.7
+
+    The variable may also be any object with a ``render()`` method that
+    accepts a context. This allows you to reference a compiled ``Template`` in
+    your context.
 
 An included template is rendered within the context of the template that
 includes it. This example produces the output ``"Hello, John!"``:
@@ -698,15 +694,6 @@ no variables at all), use the ``only`` option. No other variables are
 available to the included template::
 
     {% include "name_snippet.html" with greeting="Hi" only %}
-
-If the included template causes an exception while it's rendered (including
-if it's missing or has syntax errors), the behavior varies depending on the
-:class:`template engine's <django.template.Engine>` ``debug`` option (if not
-set, this option defaults to the value of :setting:`DEBUG`). When debug mode is
-turned on, an exception like :exc:`~django.template.TemplateDoesNotExist` or
-:exc:`~django.template.TemplateSyntaxError` will be raised; otherwise
-``{% include %}`` silences any exception that happens while rendering the
-included template and returns an empty string.
 
 .. note::
     The :ttag:`include` tag should be considered as an implementation of
@@ -1191,6 +1178,10 @@ variable. It can be useful, for instance, in a :ttag:`blocktrans` like this::
 
     {% widthratio this_value max_value max_width as width %}
     {% blocktrans %}The width is: {{ width }}{% endblocktrans %}
+
+.. versionchanged:: 1.7
+
+    The ability to use "as" with this tag like in the example above was added.
 
 .. templatetag:: with
 
@@ -2164,6 +2155,11 @@ When used without a format string::
 ...the formatting string defined in the :setting:`TIME_FORMAT` setting will be
 used, without applying any localization.
 
+.. versionchanged:: 1.7
+
+    The ability to receive and act on values with attached timezone
+    information was added in Django 1.7.
+
 .. templatefilter:: timesince
 
 timesince
@@ -2240,6 +2236,8 @@ If ``value`` is ``"Joel is a slug"``, the output will be ``"Joel i..."``.
 
 truncatechars_html
 ^^^^^^^^^^^^^^^^^^
+
+.. versionadded:: 1.7
 
 Similar to :tfilter:`truncatechars`, except that it is aware of HTML tags. Any
 tags that are opened in the string and not closed before the truncation point
@@ -2534,6 +2532,13 @@ django.contrib.humanize
 
 A set of Django template filters useful for adding a "human touch" to data. See
 :doc:`/ref/contrib/humanize`.
+
+
+django.contrib.webdesign
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+A collection of template tags that can be useful while designing a Web site,
+such as a generator of Lorem Ipsum text. See :doc:`/ref/contrib/webdesign`.
 
 static
 ^^^^^^

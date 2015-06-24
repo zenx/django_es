@@ -52,13 +52,13 @@ all of its authentication backends. If the first authentication method fails,
 Django tries the second one, and so on, until all backends have been attempted.
 
 The list of authentication backends to use is specified in the
-:setting:`AUTHENTICATION_BACKENDS` setting. This should be a list of Python
+:setting:`AUTHENTICATION_BACKENDS` setting. This should be a tuple of Python
 path names that point to Python classes that know how to authenticate. These
 classes can be anywhere on your Python path.
 
 By default, :setting:`AUTHENTICATION_BACKENDS` is set to::
 
-    ['django.contrib.auth.backends.ModelBackend']
+    ('django.contrib.auth.backends.ModelBackend',)
 
 That's the basic authentication backend that checks the Django users database
 and queries the built-in permissions. It does not provide protection against
@@ -444,16 +444,18 @@ different User model.
         class Article(models.Model):
             author = models.ForeignKey(settings.AUTH_USER_MODEL)
 
-    When connecting to signals sent by the ``User`` model, you should specify
-    the custom model using the :setting:`AUTH_USER_MODEL` setting. For example::
+    .. versionadded:: 1.7
 
-        from django.conf import settings
-        from django.db.models.signals import post_save
+        When connecting to signals sent by the User model, you should specify the
+        custom model using the :setting:`AUTH_USER_MODEL` setting. For example::
 
-        def post_save_receiver(sender, instance, created, **kwargs):
-            pass
+            from django.conf import settings
+            from django.db.models.signals import post_save
 
-        post_save.connect(post_save_receiver, sender=settings.AUTH_USER_MODEL)
+            def post_save_receiver(sender, instance, created, **kwargs):
+                pass
+
+            post_save.connect(post_save_receiver, sender=settings.AUTH_USER_MODEL)
 
     Generally speaking, you should reference the User model with the
     :setting:`AUTH_USER_MODEL` setting in code that is executed at import
@@ -477,11 +479,9 @@ Specifying a custom User model
 
 Django expects your custom User model to meet some minimum requirements.
 
-#. If you use the default authentication backend, then your model must have a
-   single unique field that can be used for identification purposes. This can
-   be a username, an email address, or any other unique attribute. A non-unique
-   username field is allowed if you use a custom authentication backend that
-   can support it.
+#. Your model must have a single unique field that can be used for
+   identification purposes. This can be a username, an email address,
+   or any other unique attribute.
 
 #. Your model must provide a way to address the user in a "short" and
    "long" form. The most common interpretation of this would be to use
@@ -508,11 +508,10 @@ password resets. You must then provide some key implementation details:
     .. attribute:: USERNAME_FIELD
 
         A string describing the name of the field on the User model that is
-        used as the unique identifier. This will usually be a username of some
-        kind, but it can also be an email address, or any other unique
-        identifier. The field *must* be unique (i.e., have ``unique=True`` set
-        in its definition), unless you use a custom authentication backend that
-        can support non-unique usernames.
+        used as the unique identifier. This will usually be a username of
+        some kind, but it can also be an email address, or any other unique
+        identifier. The field *must* be unique (i.e., have ``unique=True``
+        set in its definition).
 
         In the following example, the field ``identifier`` is used
         as the identifying field::
@@ -589,16 +588,6 @@ password resets. You must then provide some key implementation details:
         identifies the user in an informal way. It may also return the same
         value as :meth:`django.contrib.auth.models.User.get_full_name()`.
 
-    .. admonition:: Importing ``AbstractBaseUser``
-
-        .. versionadded:: 1.9
-
-        ``AbstractBaseUser`` and ``BaseUserManager`` are importable from
-        ``django.contrib.auth.base_user`` so that they can be imported without
-        including ``django.contrib.auth`` in :setting:`INSTALLED_APPS` (this
-        raised a deprecation warning in older versions and is no longer
-        supported in Django 1.9).
-
 The following methods are available on any subclass of
 :class:`~django.contrib.auth.models.AbstractBaseUser`:
 
@@ -658,6 +647,8 @@ The following methods are available on any subclass of
         been called for this user.
 
     .. method:: models.AbstractBaseUser.get_session_auth_hash()
+
+        .. versionadded:: 1.7
 
         Returns an HMAC of the password field. Used for
         :ref:`session-invalidation-on-password-change`.
@@ -918,13 +909,6 @@ To ensure that your test suite will pass in any project configuration,
 This decorator will cause a test case to be skipped if any User model other
 than the default Django user is in use. This decorator can be applied to a
 single test, or to an entire test class.
-
-.. deprecated:: 1.9
-
-    With the test discovery changes in Django 1.6, the tests for
-    ``django.contrib`` apps are no longer run as part of the user's project.
-    Therefore, the ``@skipIfCustomUser`` decorator is no longer needed to
-    decorate tests in ``django.contrib.auth``.
 
 Depending on your application, tests may also be needed to be added to ensure
 that the application works with *any* user model, not just the default User

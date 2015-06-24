@@ -103,14 +103,18 @@ to, or in lieu of custom ``field.clean()`` methods.
 
     .. attribute:: inverse_match
 
+        .. versionadded:: 1.7
+
         The match mode for :attr:`regex`. Defaults to ``False``.
 
     .. attribute:: flags
 
-        The flags used when compiling the regular expression string
-        :attr:`regex`. If :attr:`regex` is a pre-compiled regular expression,
-        and :attr:`flags` is overridden, :exc:`TypeError` is raised. Defaults
-        to ``0``.
+        .. versionadded:: 1.7
+
+        The flags used when compiling the regular expression string :attr:`regex`.
+        If :attr:`regex` is a pre-compiled regular expression, and :attr:`flags` is overridden,
+        :exc:`TypeError` is raised.
+        Defaults to `0`.
 
 ``EmailValidator``
 ------------------
@@ -163,6 +167,10 @@ to, or in lieu of custom ``field.clean()`` methods.
 
         .. _valid URI schemes: https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml
 
+    .. versionchanged:: 1.7
+
+        The optional ``schemes`` attribute was added.
+
     .. versionchanged:: 1.8
 
         Support for IPv6 addresses, unicode domains, and URLs containing
@@ -213,16 +221,6 @@ to, or in lieu of custom ``field.clean()`` methods.
 
     A :class:`RegexValidator` instance that ensures a value is a
     comma-separated list of integers.
-
-``int_list_validator``
-----------------------
-
-.. function:: int_list_validator(sep=',', message=None, code='invalid')
-
-    .. versionadded:: 1.9
-
-    Returns a :class:`RegexValidator` instance that ensures a string
-    consists of integers separated by ``sep``.
 
 ``MaxValueValidator``
 ---------------------

@@ -306,6 +306,12 @@ model:
         Works analogously to :attr:`ForeignKey.allow_unsaved_instance_assignment
         <django.db.models.ForeignKey.allow_unsaved_instance_assignment>`.
 
+    .. deprecated:: 1.7
+
+        This class used to be defined in ``django.contrib.contenttypes.generic``.
+        Support for importing from this old location will be removed in Django
+        1.9.
+
 .. admonition:: Primary key type compatibility
 
    The "object_id" field doesn't have to be the same type as the
@@ -371,7 +377,15 @@ Reverse generic relations
 
 .. class:: GenericRelation
 
+    .. deprecated:: 1.7
+
+        This class used to be defined in ``django.contrib.contenttypes.generic``.
+        Support for importing from this old location will be removed in Django
+        1.9.
+
     .. attribute:: related_query_name
+
+        .. versionadded:: 1.7
 
         The relation on the related object back to this object doesn't exist by
         default. Setting ``related_query_name`` creates a relation from the
@@ -396,6 +410,8 @@ be used to retrieve their associated ``TaggedItems``::
     >>> t2.save()
     >>> b.tags.all()
     [<TaggedItem: django>, <TaggedItem: python>]
+
+.. versionadded:: 1.7
 
 Defining :class:`~django.contrib.contenttypes.fields.GenericRelation` with
 ``related_query_name`` set allows querying from the related object::
@@ -490,6 +506,12 @@ The :mod:`django.contrib.contenttypes.forms` module provides:
 
 .. class:: BaseGenericInlineFormSet
 
+    .. deprecated:: 1.7
+
+        This class used to be defined in ``django.contrib.contenttypes.generic``.
+        Support for importing from this old location will be removed in Django
+        1.9.
+
 .. function:: generic_inlineformset_factory(model, form=ModelForm, formset=BaseGenericInlineFormSet, ct_field="content_type", fk_field="object_id", fields=None, exclude=None, extra=3, can_order=False, can_delete=True, max_num=None, formfield_callback=None, validate_max=False, for_concrete_model=True, min_num=None, validate_min=False)
 
     Returns a ``GenericInlineFormSet`` using
@@ -505,10 +527,21 @@ The :mod:`django.contrib.contenttypes.forms` module provides:
     :class:`~django.contrib.contenttypes.fields.GenericForeignKey.for_concrete_model`
     argument on ``GenericForeignKey``.
 
+    .. deprecated:: 1.7
+
+        This function used to be defined in ``django.contrib.contenttypes.generic``.
+        Support for importing from this old location will be removed in Django
+        1.9.
+
+    .. versionchanged:: 1.7
+
+        ``min_num`` and ``validate_min`` were added.
+
+
 .. module:: django.contrib.contenttypes.admin
 
 Generic relations in admin
---------------------------
+------------------------------------
 
 The :mod:`django.contrib.contenttypes.admin` module provides
 :class:`~django.contrib.contenttypes.admin.GenericTabularInline` and
@@ -538,8 +571,20 @@ information.
         The name of the integer field that represents the ID of the related
         object. Defaults to ``object_id``.
 
+    .. deprecated:: 1.7
+
+        This class used to be defined in ``django.contrib.contenttypes.generic``.
+        Support for importing from this old location will be removed in Django
+        1.9.
+
 .. class:: GenericTabularInline
 .. class:: GenericStackedInline
 
     Subclasses of :class:`GenericInlineModelAdmin` with stacked and tabular
     layouts, respectively.
+
+    .. deprecated:: 1.7
+
+        These classes used to be defined in ``django.contrib.contenttypes.generic``.
+        Support for importing from this old location will be removed in Django
+        1.9.

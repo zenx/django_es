@@ -41,7 +41,7 @@ lower level APIs:
 Configuring an engine
 =====================
 
-.. class:: Engine([dirs][, app_dirs][, allowed_include_roots][, context_processors][, debug][, loaders][, string_if_invalid][, file_charset][, libraries][, builtins])
+.. class:: Engine([dirs][, app_dirs][, allowed_include_roots][, context_processors][, debug][, loaders][, string_if_invalid][, file_charset])
 
     .. versionadded:: 1.8
 
@@ -113,34 +113,6 @@ Configuring an engine
     * ``file_charset`` is the charset used to read template files on disk.
 
       It defaults to ``'utf-8'``.
-
-    * ``'libraries'``: A dictionary of labels and dotted Python paths of template
-      tag modules to register with the template engine. This is used to add new
-      libraries or provide alternate labels for existing ones. For example::
-
-          Engine(
-              libraries={
-                  'myapp_tags': 'path.to.myapp.tags',
-                  'admin.urls': 'django.contrib.admin.templatetags.admin_urls',
-              },
-          )
-
-      Libraries can be loaded by passing the corresponding dictionary key to
-      the :ttag:`{% load %}<load>` tag.
-
-    * ``'builtins'``: A list of dotted Python paths of template tag modules to
-      add to :doc:`built-ins </ref/templates/builtins>`. For example::
-
-          Engine(
-              builtins=['myapp.builtins'],
-          )
-
-      Tags and filters from built-in libraries can be used without first calling
-      the :ttag:`{% load %}<load>` tag.
-
-.. versionadded:: 1.9
-
-    The ``libraries`` and ``builtins`` arguments were added.
 
 .. staticmethod:: Engine.get_default()
 
@@ -450,13 +422,6 @@ dictionary syntax::
     Returns the value for ``key`` if ``key`` is in the context, else returns
     ``otherwise``.
 
-.. method:: Context.setdefault(key, default=None)
-
-    .. versionadded:: 1.9
-
-    If ``key`` is in the context, returns its value. Otherwise inserts ``key``
-    with a value of ``default`` and returns ``default``.
-
 .. method:: Context.pop()
 .. method:: Context.push()
 .. exception:: ContextPopException
@@ -483,6 +448,8 @@ If you ``pop()`` too much, it'll raise
     Traceback (most recent call last):
     ...
     ContextPopException
+
+.. versionadded:: 1.7
 
 You can also use ``push()`` as a context manager to ensure a matching ``pop()``
 is called.
@@ -525,25 +492,12 @@ the stack instead of an empty one.
     >>> c['foo']
     'first level'
 
-Like ``push()``, you can use ``update()`` as a context manager to ensure a
-matching ``pop()`` is called.
-
-    >>> c = Context()
-    >>> c['foo'] = 'first level'
-    >>> with c.update({'foo': 'second level'}):
-    ...     c['foo']
-    'second level'
-    >>> c['foo']
-    'first level'
-
-.. versionadded:: 1.9
-
-    The ability to use ``update()`` as a context manager was added.
-
 Using a ``Context`` as a stack comes in handy in :ref:`some custom template
 tags <howto-writing-custom-template-tags>`.
 
 .. method:: Context.flatten()
+
+.. versionadded:: 1.7
 
 Using ``flatten()`` method you can get whole ``Context`` stack as one dictionary
 including builtin variables.
@@ -758,6 +712,10 @@ variables:
 * ``DEFAULT_MESSAGE_LEVELS`` -- A mapping of the message level names to
   :ref:`their numeric value <message-level-constants>`.
 
+.. versionchanged:: 1.7
+
+       The ``DEFAULT_MESSAGE_LEVELS`` variable was added.
+
 Writing your own context processors
 -----------------------------------
 
@@ -859,7 +817,7 @@ loaders that come with Django:
 
     For example, for this setting::
 
-        INSTALLED_APPS = ['myproject.polls', 'myproject.music']
+        INSTALLED_APPS = ('myproject.polls', 'myproject.music')
 
     ...then ``get_template('foo.html')`` will look for ``foo.html`` in these
     directories, in this order:
@@ -967,128 +925,40 @@ option. It uses each loader until a loader finds a match.
 
 .. _custom-template-loaders:
 
-.. currentmodule:: django.template.loaders.base
-
 Custom loaders
-==============
+--------------
 
-It's possible to load templates from additional sources using custom template
-loaders. Custom ``Loader`` classes should inherit from
-``django.template.loaders.base.Loader`` and define the ``get_contents()`` and
-``get_template_sources()`` methods.
+Custom ``Loader`` classes should inherit from
+``django.template.loaders.base.Loader`` and override the
+``load_template_source()`` method, which takes a ``template_name`` argument,
+loads the template from disk (or elsewhere), and returns a tuple:
+``(template_string, template_origin)``.
 
 .. versionchanged:: 1.8
 
     ``django.template.loaders.base.Loader`` used to be defined at
     ``django.template.loader.BaseLoader``.
 
-.. versionchanged:: 1.9
+The ``load_template()`` method of the ``Loader`` class retrieves the template
+string by calling ``load_template_source()``, instantiates a ``Template`` from
+the template source, and returns a tuple: ``(template, template_origin)``.
 
-    In previous versions of Django, custom loaders defined a single method:
-    ``load_template_source()``.
-
-Loader methods
---------------
-
-.. class:: Loader
-
-    Loads templates from a given source, such as the filesystem or a database.
-
-    .. method:: get_template_sources(template_name)
-
-        A method that takes a ``template_name`` and yields
-        :class:`~django.template.base.Origin` instances for each possible
-        source.
-
-        For example, the filesystem loader may receive ``'index.html'`` as a
-        ``template_name`` argument.  This method would yield origins for the
-        full path of ``index.html`` as it appears in each template directory
-        the loader looks at.
-
-        The method doesn't need to verify that the template exists at a given
-        path, but it should ensure the path is valid. For instance, the
-        filesystem loader makes sure the path lies under a valid template
-        directory.
-
-    .. method:: get_contents(origin)
-
-        Returns the contents for a template given a
-        :class:`~django.template.base.Origin` instance.
-
-        This is where a filesystem loader would read contents from the
-        filesystem, or a database loader would read from the database. If a
-        matching template doesn't exist, this should raise a
-        :exc:`~django.template.TemplateDoesNotExist` error.
-
-    .. method:: get_template(template_name, skip=None)
-
-        Returns a ``Template`` object for a given ``template_name`` by looping
-        through results from :meth:`get_template_sources` and calling
-        :meth:`get_contents`. This returns the first matching template. If no
-        template is found, :exc:`~django.template.TemplateDoesNotExist` is
-        raised.
-
-        The optional ``skip`` argument is a list of origins to ignore when
-        extending templates. This allow templates to extend other templates of
-        the same name. It also used to avoid recursion errors.
-
-        In general, it is enough to define :meth:`get_template_sources` and
-        :meth:`get_contents` for custom template loaders. ``get_template()``
-        will usually not need to be overridden.
-
-    .. method:: load_template_source(template_name, template_dirs=None)
-
-        Returns a tuple of (``template_string``, ``template_origin``), where
-        ``template_string`` is a string containing the template contents,
-        and ``template_origin`` is a string identifying the template source.
-        A filesystem-based loader may return the full path to the file as the
-        ``template_origin``, for example.
-
-        ``template_dirs`` is an optional argument used to control which
-        directories the loader will search.
-
-        This method is called automatically by :meth:`load_template` and should
-        be overridden when writing custom template loaders.
-
-        .. deprecated:: 1.9
-
-             Custom loaders should use :meth:`get_template` and
-             :meth:`get_contents` instead.
-
-    .. method:: load_template(template_name, template_dirs=None)
-
-        Returns a tuple of (``template``, ``template_origin``), where ``template``
-        is a ``Template`` object and ``template_origin`` is a string identifying
-        the template source. A filesystem-based loader may return the full
-        path to the file as the ``template_origin``, for example.
-
-        .. deprecated:: 1.9
-
-             Custom loaders should use :meth:`get_template` and
-             :meth:`get_contents` instead.
-
-.. admonition:: Building your own
-
-    For examples, `read the source code for Django's built-in loaders`_.
-
-.. _read the source code for Django's built-in loaders: https://github.com/django/django/tree/master/django/template/loaders
-
-.. currentmodule:: django.template.base
+.. currentmodule:: django.template
 
 Template origin
 ===============
 
-Templates have an ``origin`` containing attributes depending on the source
-they are loaded from.
+.. versionadded:: 1.7
 
-.. versionchanged:: 1.9
+When an :class:`~django.template.Engine` is initialized with ``debug=True``,
+its templates have an ``origin`` attribute depending on the source they are
+loaded from. For engines initialized by Django, ``debug`` defaults to the
+value of :setting:`DEBUG`.
 
-    Django used to create an origin based on
-    ``django.template.loader.LoaderOrigin`` or
-    ``django.template.base.StringOrigin``. These have been replaced by
-    ``django.template.base.Origin``.
+.. class:: loader.LoaderOrigin
 
-.. class:: Origin
+    Templates created from a template loader will use the
+    ``django.template.loader.LoaderOrigin`` class.
 
     .. attribute:: name
 
@@ -1096,13 +966,16 @@ they are loaded from.
         For loaders that read from the file system, this is the full
         path to the template.
 
-        If the template is instantiated directly rather than through a
-        template loader, this is a string value of ``<unknown_source>``.
-
-    .. attribute:: template_name
+    .. attribute:: loadname
 
         The relative path to the template as passed into the
         template loader.
 
-        If the template is instantiated directly rather than through a
-        template loader, this is ``None``.
+.. class:: StringOrigin
+
+    Templates created from a ``Template`` class will use the
+    ``django.template.StringOrigin`` class.
+
+    .. attribute:: source
+
+        The string used to create the template.

@@ -23,11 +23,6 @@ The sites framework is mainly based on a simple model:
 
         The domain name associated with the Web site.
 
-        .. versionchanged:: 1.9
-
-            The ``domain`` field was set to be
-            :attr:`~django.db.models.Field.unique`.
-
     .. attribute:: name
 
         A human-readable "verbose" name for the Web site.
@@ -394,6 +389,8 @@ define :class:`~django.contrib.sites.managers.CurrentSiteManager`.
 Site middleware
 ===============
 
+.. versionadded:: 1.7
+
 If you often use this pattern::
 
     from django.contrib.sites.models import Site
@@ -475,6 +472,11 @@ a fallback when the database-backed sites framework is not available.
         Sets the ``name`` and ``domain`` attributes to the value of
         :meth:`~django.http.HttpRequest.get_host`.
 
+    .. deprecated:: 1.7
+
+        This class used to be defined in ``django.contrib.sites.models``. The
+        old import location will work until Django 1.9.
+
 A :class:`~django.contrib.sites.requests.RequestSite` object has a similar
 interface to a normal :class:`~django.contrib.sites.models.Site` object,
 except its :meth:`~django.contrib.sites.requests.RequestSite.__init__()`
@@ -495,23 +497,15 @@ Finally, to avoid repetitive fallback code, the framework provides a
     A function that checks if ``django.contrib.sites`` is installed and
     returns either the current :class:`~django.contrib.sites.models.Site`
     object or a :class:`~django.contrib.sites.requests.RequestSite` object
-    based on the request. It looks up the current site based on
-    :meth:`request.get_host() <django.http.HttpRequest.get_host>` if the
-    :setting:`SITE_ID` setting is not defined.
+    based on the request.
 
-    Both a domain and a port may be returned by :meth:`request.get_host()
-    <django.http.HttpRequest.get_host>` when the Host header has a port
-    explicitly specified, e.g. ``example.com:80``. In such cases, if the
-    lookup fails because the host does not match a record in the database,
-    the port is stripped and the lookup is retried with the domain part
-    only. This does not apply to
-    :class:`~django.contrib.sites.requests.RequestSite` which will always
-    use the unmodified host.
+    .. deprecated:: 1.7
+
+        This function used to be defined in ``django.contrib.sites.models``.
+        The old import location will work until Django 1.9.
 
     .. versionchanged:: 1.8
 
-        Looking up the current site based on ``request.get_host()`` was added.
-
-    .. versionchanged:: 1.9
-
-        Retrying the lookup with the port stripped was added.
+        This function will now lookup the current site based on
+        :meth:`request.get_host() <django.http.HttpRequest.get_host>` if the
+        :setting:`SITE_ID` setting is not defined.

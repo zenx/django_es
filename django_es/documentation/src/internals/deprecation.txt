@@ -7,78 +7,6 @@ in a backward incompatible way, following their deprecation, as per the
 :ref:`deprecation policy <internal-release-deprecation-policy>`. More details
 about each item can often be found in the release notes of two versions prior.
 
-.. _deprecation-removed-in-2.1:
-
-2.1
----
-
-See the :ref:`Django 1.9 release notes<deprecated-features-1.9>` for more
-details on these changes.
-
-* The ``weak`` argument to ``django.dispatch.signals.Signal.disconnect()`` will
-  be removed.
-
-* The ``django.forms.extras`` package will be removed.
-
-* The ``assignment_tag`` helper will be removed.
-
-* The ``host`` argument to ``assertsRedirects`` will be removed. The
-  compatibility layer which allows absolute URLs to be considered equal to
-  relative ones when the path is identical will also be removed.
-
-* ``Field.rel`` will be removed.
-
-* ``Field.remote_field.to`` attribute will be removed.
-
-* ``django.db.models.fields.add_lazy_relation()`` will be removed.
-
-* When time zone support is enabled, database backends that don't support time
-  zones won't convert aware datetimes to naive values in UTC anymore when such
-  values are passed as parameters to SQL queries executed outside of the ORM,
-  e.g. with ``cursor.execute()``.
-
-* The ``django.contrib.auth.tests.utils.skipIfCustomUser()`` decorator will be
-  removed.
-
-* The ``GeoManager`` and ``GeoQuerySet`` classes will be removed.
-
-* The ``supports_recursion`` check for template loaders will be removed from:
-
-  * ``django.template.engine.Engine.find_template()``
-  * ``django.template.loader_tags.ExtendsNode.find_template()``
-  * ``django.template.loaders.base.Loader.supports_recursion()``
-  * ``django.template.loaders.cached.Loader.supports_recursion()``
-
-* The ``load_template()`` and ``load_template_sources()`` template loader
-  methods will be removed.
-
-* The ``template_dirs`` argument for template loaders will be removed:
-
-  * ``django.template.loaders.base.Loader.get_template()``
-  * ``django.template.loaders.cached.Loader.cache_key()``
-  * ``django.template.loaders.cached.Loader.get_template()``
-  * ``django.template.loaders.cached.Loader.get_template_sources()``
-  * ``django.template.loaders.filesystem.Loader.get_template_sources()``
-
-* The ``django.template.loaders.base.Loader.__call__()`` method will be
-  removed.
-
-* Support for custom error views with a single positional parameter will be
-  dropped.
-
-* The ``mime_type`` attribute of ``django.utils.feedgenerator.Atom1Feed`` and
-  ``django.utils.feedgenerator.RssFeed`` will be removed in favor of
-  ``content_type``.
-
-* The ``app_name`` argument to :func:`~django.conf.urls.include()` will be
-  removed.
-
-* Support for passing a 3-tuple as the first argument to ``include()`` will
-  be removed.
-
-* Support for setting a URL instance namespace without an application
-  namespace will be removed.
-
 .. _deprecation-removed-in-2.0:
 
 2.0
@@ -243,9 +171,6 @@ details on these changes.
 * Support for the old signature of ``allow_migrate`` will be removed. It changed
   from ``allow_migrate(self, db, model)`` to
   ``allow_migrate(self, db, app_label, model_name=None, **hints)``.
-
-* Support for the syntax of ``{% cycle %}`` that uses comma-separated arguments
-  will be removed.
 
 .. _deprecation-removed-in-1.9:
 

@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "DJANGO-ADMIN" "1" "March 07, 2015" "1.9" "Django"
+.TH "DJANGO-ADMIN" "1" "March 10, 2015" "1.8" "Django"
 .SH NAME
 django-admin \- Utility script for the Django Web framework
 .
@@ -34,6 +34,10 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 \fBdjango\-admin\fP is Django\(aqs command\-line utility for administrative tasks.
 This document outlines all it can do.
 .sp
+Prior to Django 1.7, \fBdjango\-admin\fP was only installed as
+\fBdjango\-admin.py\fP\&.
+
+.sp
 In addition, \fBmanage.py\fP is automatically created in each Django project.
 \fBmanage.py\fP is a thin wrapper around \fBdjango\-admin\fP that takes care of
 several things for you before delegating to \fBdjango\-admin\fP:
@@ -46,6 +50,9 @@ it points to your project\(aqs \fBsettings.py\fP file.
 .IP \(bu 2
 It calls \fBdjango.setup()\fP to initialize various internals of Django.
 .UNINDENT
+.sp
+\fBdjango.setup()\fP didn\(aqt exist in previous versions of Django.
+
 .sp
 The \fBdjango\-admin\fP script should be on your system path if you installed
 Django via its \fBsetup.py\fP utility. If it\(aqs not on your path, you can find it
@@ -132,6 +139,8 @@ documentation for the \fI\%\-\-verbosity\fP option.
 .TP
 .B django\-admin check
 .UNINDENT
+.sp
+
 .sp
 Uses the \fBsystem check framework\fP to inspect
 the entire Django project for common problems.
@@ -255,13 +264,17 @@ django\-admin compilemessages \-x pt_BR \-x fr
 .B django\-admin createcachetable
 .UNINDENT
 .sp
-Creates the cache tables for use with the database cache backend using the
-information from your settings file. See \fB/topics/cache\fP for more
-information.
+Creates the cache tables for use with the database cache backend. See
+\fB/topics/cache\fP for more information.
 .sp
 The \fI\%\-\-database\fP option can be used to specify the database
-onto which the cache table will be installed, but since this information is
-pulled from your settings by default, it\(aqs typically not needed.
+onto which the cachetable will be installed.
+.sp
+It is no longer necessary to provide the cache table name or the
+\fI\%\-\-database\fP option. Django takes this information from your
+settings file. If you have configured multiple caches or multiple databases,
+all cache tables are created.
+
 .SS dbshell
 .INDENT 0.0
 .TP
@@ -354,6 +367,8 @@ from which data will be dumped.
 .B \-\-natural\-foreign
 .UNINDENT
 .sp
+
+.sp
 When this option is specified, Django will use the \fBnatural_key()\fP model
 method to serialize any foreign key and many\-to\-many relationship to objects of
 the type that defines the method. If you are dumping \fBcontrib.auth\fP
@@ -365,9 +380,22 @@ and the next option.
 .B \-\-natural\-primary
 .UNINDENT
 .sp
+
+.sp
 When this option is specified, Django will not provide the primary key in the
 serialized data of this object since it can be calculated during
 deserialization.
+.INDENT 0.0
+.TP
+.B \-\-natural
+.UNINDENT
+.sp
+Deprecated since version 1.7: Equivalent to the \fI\%\-\-natural\-foreign\fP option; use that instead.
+
+.sp
+Use \fInatural keys\fP to represent
+any foreign key and many\-to\-many relationship with a model that provides
+a natural key definition.
 .INDENT 0.0
 .TP
 .B \-\-pks
@@ -400,6 +428,9 @@ prompts.
 .sp
 The \fI\%\-\-database\fP option may be used to specify the database
 to flush.
+.SS \fB\-\-no\-initial\-data\fP
+.sp
+Use \fB\-\-no\-initial\-data\fP to avoid loading the initial_data fixture.
 .SS inspectdb
 .INDENT 0.0
 .TP
@@ -488,6 +519,9 @@ models that may have been removed since the fixture was originally generated.
 .sp
 The \fI\%\-\-app\fP option can be used to specify a single app to look
 for fixtures in rather than looking through all apps.
+.sp
+\fB\-\-app\fP was added.
+
 .sp
 \fB\-\-ignorenonexistent\fP also ignores non\-existent models.
 
@@ -758,6 +792,10 @@ django\-admin makemessages \-x pt_BR \-x fr
 .fi
 .UNINDENT
 .UNINDENT
+.sp
+Added the \fB\-\-previous\fP option to the \fBmsgmerge\fP command when merging
+with existing po files.
+
 .INDENT 0.0
 .TP
 .B \-\-domain
@@ -855,6 +893,8 @@ the keywords that \fI\%makemessages\fP passes to \fBxgettext\fP\&.
 .B django\-admin makemigrations
 .UNINDENT
 .sp
+
+.sp
 Creates new migrations based on the changes detected to your models.
 Migrations, their relationship with apps and more are covered in depth in
 \fBthe migrations documentation\fP\&.
@@ -914,6 +954,8 @@ when no migration are created (or would have been created, if combined with
 .B django\-admin migrate
 .UNINDENT
 .sp
+
+.sp
 Synchronizes the database state with the current set of models and migrations.
 Migrations, their relationship with apps and more are covered in depth in
 \fBthe migrations documentation\fP\&.
@@ -921,7 +963,8 @@ Migrations, their relationship with apps and more are covered in depth in
 The behavior of this command changes depending on the arguments provided:
 .INDENT 0.0
 .IP \(bu 2
-No arguments: All apps have all of their migrations run.
+No arguments: All migrated apps have all of their migrations run,
+and all unmigrated apps are synchronized with the database,
 .IP \(bu 2
 \fB<app_label>\fP: The specified app has its migrations run, up to the most
 recent migration. This may involve running other apps\(aq migrations too, due
@@ -933,6 +976,10 @@ applied. This may involve unapplying migrations if you have previously
 migrated past the named migration. Use the name \fBzero\fP to unapply all
 migrations for an app.
 .UNINDENT
+.sp
+Unlike \fBsyncdb\fP, this command does not prompt you to create a superuser if
+one doesn\(aqt exist (assuming you are using \fBdjango.contrib.auth\fP). Use
+\fI\%createsuperuser\fP to do that if you wish.
 .sp
 The \fI\%\-\-database\fP option can be used to specify the database to
 migrate.
@@ -969,6 +1016,170 @@ schema matches what is recorded in your initial migration.
 Deprecated since version 1.8: The \fB\-\-list\fP option has been moved to the \fI\%showmigrations\fP
 command.
 
+.SS runfcgi [options]
+.INDENT 0.0
+.TP
+.B django\-admin runfcgi
+.UNINDENT
+.sp
+Deprecated since version 1.7: FastCGI support is deprecated and will be removed in Django 1.9.
+
+.sp
+Starts a set of FastCGI processes suitable for use with any Web server that
+supports the FastCGI protocol. See the \fBFastCGI deployment documentation\fP for details. Requires the Python FastCGI module from
+\fI\%flup\fP\&.
+.sp
+Internally, this wraps the WSGI application object specified by the
+\fBWSGI_APPLICATION\fP setting.
+.sp
+The options accepted by this command are passed to the FastCGI library and
+don\(aqt use the \fB\(aq\-\-\(aq\fP prefix as is usual for other Django management commands.
+.INDENT 0.0
+.TP
+.B protocol
+.UNINDENT
+.sp
+\fBprotocol=PROTOCOL\fP
+.sp
+Protocol to use. \fIPROTOCOL\fP can be \fBfcgi\fP, \fBscgi\fP, \fBajp\fP, etc.
+(default is \fBfcgi\fP)
+.INDENT 0.0
+.TP
+.B host
+.UNINDENT
+.sp
+\fBhost=HOSTNAME\fP
+.sp
+Hostname to listen on.
+.INDENT 0.0
+.TP
+.B port
+.UNINDENT
+.sp
+\fBport=PORTNUM\fP
+.sp
+Port to listen on.
+.INDENT 0.0
+.TP
+.B socket
+.UNINDENT
+.sp
+\fBsocket=FILE\fP
+.sp
+UNIX socket to listen on.
+.INDENT 0.0
+.TP
+.B method
+.UNINDENT
+.sp
+\fBmethod=IMPL\fP
+.sp
+Possible values: \fBprefork\fP or \fBthreaded\fP (default \fBprefork\fP)
+.INDENT 0.0
+.TP
+.B maxrequests
+.UNINDENT
+.sp
+\fBmaxrequests=NUMBER\fP
+.sp
+Number of requests a child handles before it is killed and a new child is
+forked (0 means no limit).
+.INDENT 0.0
+.TP
+.B maxspare
+.UNINDENT
+.sp
+\fBmaxspare=NUMBER\fP
+.sp
+Max number of spare processes / threads.
+.INDENT 0.0
+.TP
+.B minspare
+.UNINDENT
+.sp
+\fBminspare=NUMBER\fP
+.sp
+Min number of spare processes / threads.
+.INDENT 0.0
+.TP
+.B maxchildren
+.UNINDENT
+.sp
+\fBmaxchildren=NUMBER\fP
+.sp
+Hard limit number of processes / threads.
+.INDENT 0.0
+.TP
+.B daemonize
+.UNINDENT
+.sp
+\fBdaemonize=BOOL\fP
+.sp
+Whether to detach from terminal.
+.INDENT 0.0
+.TP
+.B pidfile
+.UNINDENT
+.sp
+\fBpidfile=FILE\fP
+.sp
+Write the spawned process\-id to file \fIFILE\fP\&.
+.INDENT 0.0
+.TP
+.B workdir
+.UNINDENT
+.sp
+\fBworkdir=DIRECTORY\fP
+.sp
+Change to directory \fIDIRECTORY\fP when daemonizing.
+.INDENT 0.0
+.TP
+.B debug
+.UNINDENT
+.sp
+\fBdebug=BOOL\fP
+.sp
+Set to true to enable flup tracebacks.
+.INDENT 0.0
+.TP
+.B outlog
+.UNINDENT
+.sp
+\fBoutlog=FILE\fP
+.sp
+Write stdout to the \fIFILE\fP file.
+.INDENT 0.0
+.TP
+.B errlog
+.UNINDENT
+.sp
+\fBerrlog=FILE\fP
+.sp
+Write stderr to the \fIFILE\fP file.
+.INDENT 0.0
+.TP
+.B umask
+.UNINDENT
+.sp
+\fBumask=UMASK\fP
+.sp
+Umask to use when daemonizing. The value is interpreted as an octal number
+(default value is \fB0o22\fP).
+.sp
+Example usage:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+django\-admin runfcgi socket=/tmp/fcgi.sock method=prefork daemonize=true \e
+    pidfile=/var/run/django\-fcgi.pid
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Run a FastCGI server as a daemon and write the spawned PID in a file.
 .SS runserver [port or address:port]
 .INDENT 0.0
 .TP
@@ -997,11 +1208,17 @@ needed. You don\(aqt need to restart the server for code changes to take effect.
 However, some actions like adding files don\(aqt trigger a restart, so you\(aqll
 have to restart the server in these cases.
 .sp
+Compiling translation files now also restarts the development server.
+
+.sp
 If you are using Linux and install \fI\%pyinotify\fP, kernel signals will be used to
 autoreload the server (rather than polling file modification timestamps each
 second). This offers better scaling to large projects, reduction in response
 time to code modification, more robust change detection, and battery usage
 reduction.
+.sp
+\fBpyinotify\fP support was added.
+
 .sp
 When you start the server, and each time you change Python code while the
 server is running, the server will check your entire Django project for errors (see
@@ -1287,6 +1504,79 @@ migrations. Any supplied app labels are ignored because the plan might go
 beyond those apps. Same as \fB\-\-list\fP, applied migrations are marked by an
 \fB[X]\fP\&. For a verbosity of 2 and above, all dependencies of a migration will
 also be shown.
+.SS sql <app_label app_label ...>
+.INDENT 0.0
+.TP
+.B django\-admin sql
+.UNINDENT
+.sp
+Prints the CREATE TABLE SQL statements for the given app name(s).
+.sp
+The \fI\%\-\-database\fP option can be used to specify the database for
+which to print the SQL.
+.SS sqlall <app_label app_label ...>
+.INDENT 0.0
+.TP
+.B django\-admin sqlall
+.UNINDENT
+.sp
+Prints the CREATE TABLE and initial\-data SQL statements for the given app name(s).
+.sp
+Refer to the description of \fI\%sqlcustom\fP for an explanation of how to
+specify initial data.
+.sp
+The \fI\%\-\-database\fP option can be used to specify the database for
+which to print the SQL.
+.sp
+The \fBsql*\fP management commands now respect the \fBallow_migrate()\fP method
+of \fBDATABASE_ROUTERS\fP\&. If you have models synced to non\-default
+databases, use the \fI\%\-\-database\fP flag to get SQL for those
+models (previously they would always be included in the output).
+
+.SS sqlclear <app_label app_label ...>
+.INDENT 0.0
+.TP
+.B django\-admin sqlclear
+.UNINDENT
+.sp
+Prints the DROP TABLE SQL statements for the given app name(s).
+.sp
+The \fI\%\-\-database\fP option can be used to specify the database for
+which to print the SQL.
+.SS sqlcustom <app_label app_label ...>
+.INDENT 0.0
+.TP
+.B django\-admin sqlcustom
+.UNINDENT
+.sp
+Prints the custom SQL statements for the given app name(s).
+.sp
+For each model in each specified app, this command looks for the file
+\fB<app_label>/sql/<modelname>.sql\fP, where \fB<app_label>\fP is the given app
+name and \fB<modelname>\fP is the model\(aqs name in lowercase. For example, if you
+have an app \fBnews\fP that includes a \fBStory\fP model, \fBsqlcustom\fP will
+attempt to read a file \fBnews/sql/story.sql\fP and append it to the output of
+this command.
+.sp
+Each of the SQL files, if given, is expected to contain valid SQL. The SQL
+files are piped directly into the database after all of the models\(aq
+table\-creation statements have been executed. Use this SQL hook to make any
+table modifications, or insert any SQL functions into the database.
+.sp
+Note that the order in which the SQL files are processed is undefined.
+.sp
+The \fI\%\-\-database\fP option can be used to specify the database for
+which to print the SQL.
+.SS sqldropindexes <app_label app_label ...>
+.INDENT 0.0
+.TP
+.B django\-admin sqldropindexes
+.UNINDENT
+.sp
+Prints the DROP INDEX SQL statements for the given app name(s).
+.sp
+The \fI\%\-\-database\fP option can be used to specify the database for
+which to print the SQL.
 .SS sqlflush
 .INDENT 0.0
 .TP
@@ -1295,6 +1585,16 @@ also be shown.
 .sp
 Prints the SQL statements that would be executed for the \fI\%flush\fP
 command.
+.sp
+The \fI\%\-\-database\fP option can be used to specify the database for
+which to print the SQL.
+.SS sqlindexes <app_label app_label ...>
+.INDENT 0.0
+.TP
+.B django\-admin sqlindexes
+.UNINDENT
+.sp
+Prints the CREATE INDEX SQL statements for the given app name(s).
 .sp
 The \fI\%\-\-database\fP option can be used to specify the database for
 which to print the SQL.
@@ -1542,6 +1842,18 @@ supported options)
 .sp
 Please also see the \fI\%rendering warning\fP as mentioned
 for \fI\%startapp\fP\&.
+.SS syncdb
+.INDENT 0.0
+.TP
+.B django\-admin syncdb
+.UNINDENT
+.sp
+Deprecated since version 1.7: This command has been deprecated in favor of the \fI\%migrate\fP
+command, which performs both the old behavior as well as executing
+migrations. It is now just an alias to that command.
+
+.sp
+Alias for \fI\%migrate\fP\&.
 .SS test <app or test identifier>
 .INDENT 0.0
 .TP
@@ -1701,6 +2013,17 @@ django\-admin testserver \-\-addrport 1.2.3.4:7000 test
 .sp
 The \fI\%\-\-noinput\fP option may be provided to suppress all user
 prompts.
+.SS validate
+.INDENT 0.0
+.TP
+.B django\-admin validate
+.UNINDENT
+.sp
+Deprecated since version 1.7: Replaced by the \fI\%check\fP command.
+
+.sp
+Validates all installed models (according to the \fBINSTALLED_APPS\fP
+setting) and prints validation errors to standard output.
 .SH COMMANDS PROVIDED BY APPLICATIONS
 .sp
 Some commands are only available when the \fBdjango.contrib\fP application that
@@ -1917,6 +2240,8 @@ that \fBdjango\-admin\fP should print to the console.
 .TP
 .B \-\-no\-color
 .UNINDENT
+.sp
+
 .sp
 Example usage:
 .INDENT 0.0
@@ -2159,6 +2484,12 @@ export DJANGO_COLORS="light;error=yellow/blue,blink;notice=magenta"
 would specify the use of all the colors in the light color palette,
 \fIexcept\fP for the colors for errors and notices which would be
 overridden as specified.
+.sp
+
+.sp
+Support for color\-coded output from \fBdjango\-admin\fP / \fBmanage.py\fP
+utilities on Windows by relying on the ANSICON application was added in Django
+1.7.
 .SS Bash completion
 .sp
 If you use the Bash shell, consider installing the Django bash completion

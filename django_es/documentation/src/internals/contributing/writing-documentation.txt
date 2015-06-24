@@ -210,7 +210,7 @@ Our policy for new features is:
 
 Our preferred way for marking new features is by prefacing the features'
 documentation with: "``.. versionadded:: X.Y``", followed by a mandatory
-blank line and an optional description (indented).
+blank line and an optional content (indented).
 
 General improvements, or other changes to the APIs that should be emphasized
 should use the "``.. versionchanged:: X.Y``" directive (with the same format
@@ -312,14 +312,14 @@ example:
     ADMINS
     ------
 
-    Default: ``[]`` (Empty list)
+    Default: ``()`` (Empty tuple)
 
-    A list of all the people who get code error notifications. When
+    A tuple that lists people who get code error notifications. When
     ``DEBUG=False`` and a view raises an exception, Django will email these people
-    with the full exception information. Each member of the list should be a tuple
+    with the full exception information. Each member of the tuple should be a tuple
     of (Full name, email address). Example::
 
-        [('John', 'john@example.com'), ('Mary', 'mary@example.com')]
+        (('John', 'john@example.com'), ('Mary', 'mary@example.com'))
 
     Note that Django will email *all* of these people whenever an error happens.
     See :doc:`/howto/error-reporting` for more information.
@@ -354,6 +354,14 @@ look better:
         .. method:: File.close()
 
   That is, use metadata instead of titles.
+
+* Add more links -- nearly everything that's an inline code literal
+  right now can probably be turned into a xref.
+
+  See the ``literals_to_xrefs.py`` file in ``_ext`` -- it's a shell script
+  to help do this work.
+
+  This will probably be a continuing, never-ending project.
 
 * Whenever possible, use links. So, use ``:setting:`ADMINS``` instead
   of ````ADMINS````.

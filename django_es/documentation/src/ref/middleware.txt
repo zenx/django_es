@@ -354,6 +354,8 @@ Site middleware
 
 .. class:: CurrentSiteMiddleware
 
+.. versionadded:: 1.7
+
 Adds the ``site`` attribute representing the current site to every incoming
 ``HttpRequest`` object. See the :ref:`sites documentation <site-middleware>`.
 
@@ -375,6 +377,8 @@ Middleware for utilizing Web server provided authentication. See
 :doc:`/howto/auth-remote-user` for usage details.
 
 .. class:: SessionAuthenticationMiddleware
+
+.. versionadded:: 1.7
 
 Allows a user's sessions to be invalidated when their password changes. See
 :ref:`session-invalidation-on-password-change` for details. This middleware must
@@ -410,12 +414,6 @@ Middleware ordering
 ===================
 
 Here are some hints about the ordering of various Django middleware classes:
-
-#. :class:`~django.middleware.security.SecurityMiddleware`
-
-   It should go near the top of the list if you're going to turn on the SSL
-   redirect as that avoids running through a bunch of other unnecessary
-   middleware.
 
 #. :class:`~django.middleware.cache.UpdateCacheMiddleware`
 

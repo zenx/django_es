@@ -13,11 +13,9 @@ This document contains all the API references of :class:`Field` including the
 .. seealso::
 
     If the built-in fields don't do the trick, you can try `django-localflavor
-    <https://github.com/django/django-localflavor>`_ (`documentation
-    <https://django-localflavor.readthedocs.org/>`_), which contains assorted
-    pieces of code that are useful for particular countries and cultures.
-
-    Also, you can easily :doc:`write your own custom model fields
+    <https://django-localflavor.readthedocs.org/>`_, which contains assorted
+    pieces of code that are useful for particular countries or cultures. Also,
+    you can easily :doc:`write your own custom model fields
     </howto/custom-model-fields>`.
 
 .. note::
@@ -159,6 +157,8 @@ This lets you construct choices dynamically. But if you find yourself hacking
 database table with a :class:`ForeignKey`. :attr:`~Field.choices` is meant for
 static data that doesn't change much, if ever.
 
+.. versionadded:: 1.7
+
 Unless :attr:`blank=False<Field.blank>` is set on the field along with a
 :attr:`~Field.default` then a label containing ``"---------"`` will be rendered
 with the select box. To override this behavior, add a tuple to ``choices``
@@ -184,7 +184,8 @@ scenes.
 
 .. attribute:: Field.db_index
 
-If ``True``, a database index will be created for this field.
+If ``True``, :djadmin:`django-admin sqlindexes <sqlindexes>` will output a
+``CREATE INDEX`` statement for this field.
 
 ``db_tablespace``
 -----------------
@@ -250,6 +251,10 @@ want to override.
 Error message keys include ``null``, ``blank``, ``invalid``, ``invalid_choice``,
 ``unique``, and ``unique_for_date``. Additional error message keys are
 specified for each field in the `Field types`_ section below.
+
+.. versionadded:: 1.7
+
+The ``unique_for_date`` error message key was added.
 
 ``help_text``
 -------------
@@ -490,11 +495,7 @@ optional arguments:
 
     Automatically set the field to now when the object is first created. Useful
     for creation of timestamps. Note that the current date is *always* used;
-    it's not just a default value that you can override. So even if you
-    set a value for this field when creating the object, it will be ignored.
-    If you want to be able to modify this field, set ``default=timezone.now``
-    (from :func:`django.utils.timezone.now`) instead of ``auto_now_add=True``.
-
+    it's not just a default value that you can override.
 
 The default form widget for this field is a
 :class:`~django.forms.TextInput`. The admin adds a JavaScript calendar,
@@ -557,9 +558,7 @@ decimal places::
 
     models.DecimalField(..., max_digits=19, decimal_places=10)
 
-The default form widget for this field is a :class:`~django.forms.NumberInput`
-when :attr:`~django.forms.Field.localize` is ``False`` or
-:class:`~django.forms.TextInput` otherwise.
+The default form widget for this field is a :class:`~django.forms.TextInput`.
 
 .. note::
 
@@ -613,32 +612,23 @@ Has two optional arguments:
 
 .. attribute:: FileField.upload_to
 
-    This attribute provides a way of setting the upload directory and file name,
-    and can be set in two ways. In both cases, the value is passed to the
-    :meth:`Storage.save() <django.core.files.storage.Storage.save>` method.
+    .. versionchanged:: 1.7
 
-    If you specify a string value, it may contain :func:`~time.strftime`
-    formatting, which will be replaced by the date/time of the file upload (so
-    that uploaded files don't fill up the given directory). For example::
+        ``upload_to`` was required in older versions of Django.
 
-        class MyModel(models.Model):
-            # file will be uploaded to MEDIA_ROOT/uploads
-            upload = models.FileField(upload_to='uploads/')
-            # or...
-            # file will be saved to MEDIA_ROOT/uploads/2015/01/30
-            upload = models.FileField(upload_to='uploads/%Y/%m/%d/')
+    A local filesystem path that will be appended to your :setting:`MEDIA_ROOT`
+    setting to determine the value of the
+    :attr:`~django.db.models.fields.files.FieldFile.url` attribute.
 
-    If you are using the default
-    :class:`~django.core.files.storage.FileSystemStorage`, the string value
-    will be appended to your :setting:`MEDIA_ROOT` path to form the location on
-    the local filesystem where uploaded files will be stored. If you are using
-    a different storage, check that storage's documentation to see how it
-    handles ``upload_to``.
+    This path may contain :func:`~time.strftime` formatting, which will be
+    replaced by the date/time of the file upload (so that uploaded files don't
+    fill up the given directory).
 
-    ``upload_to`` may also be a callable, such as a function. This will be
-    called to obtain the upload path, including the filename. This callable must
-    accept two arguments and return a Unix-style path (with forward slashes)
-    to be passed along to the storage system. The two arguments are:
+    This may also be a callable, such as a function, which will be called to
+    obtain the upload path, including the filename. This callable must be able
+    to accept two arguments, and return a Unix-style path (with forward slashes)
+    to be passed along to the storage system. The two arguments that will be
+    passed are:
 
     ======================  ===============================================
     Argument                Description
@@ -657,15 +647,6 @@ Has two optional arguments:
                             file. This may or may not be taken into account
                             when determining the final destination path.
     ======================  ===============================================
-
-    For example::
-
-        def user_directory_path(instance, filename):
-            # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-            return 'user_{0}/{1}'.format(instance.user.id, filename)
-
-        class MyModel(models.Model):
-            upload = models.FileField(upload_to=user_directory_path)
 
 .. attribute:: FileField.storage
 
@@ -874,9 +855,7 @@ can change the maximum length using the :attr:`~CharField.max_length` argument.
 
 A floating-point number represented in Python by a ``float`` instance.
 
-The default form widget for this field is a :class:`~django.forms.NumberInput`
-when :attr:`~django.forms.Field.localize` is ``False`` or
-:class:`~django.forms.TextInput` otherwise.
+The default form widget for this field is a :class:`~django.forms.TextInput`.
 
 .. _floatfield_vs_decimalfield:
 
@@ -931,8 +910,19 @@ The default form widget for this field is a
 
 An integer. Values from ``-2147483648`` to ``2147483647`` are safe in all
 databases supported by Django. The default form widget for this field is a
-:class:`~django.forms.NumberInput` when :attr:`~django.forms.Field.localize`
-is ``False`` or :class:`~django.forms.TextInput` otherwise.
+:class:`~django.forms.TextInput`.
+
+``IPAddressField``
+------------------
+
+.. class:: IPAddressField([**options])
+
+.. deprecated:: 1.7
+    This field has been deprecated in favor of
+    :class:`~django.db.models.GenericIPAddressField`.
+
+An IP address, in string format (e.g. "192.0.2.30"). The default form widget
+for this field is a :class:`~django.forms.TextInput`.
 
 ``GenericIPAddressField``
 -------------------------
@@ -1029,10 +1019,12 @@ databases supported by Django.
 A large text field. The default form widget for this field is a
 :class:`~django.forms.Textarea`.
 
-If you specify a ``max_length`` attribute, it will be reflected in the
-:class:`~django.forms.Textarea` widget of the auto-generated form field.
-However it is not enforced at the model or database level. Use a
-:class:`CharField` for that.
+.. versionchanged:: 1.7
+
+    If you specify a ``max_length`` attribute, it will be reflected in the
+    :class:`~django.forms.Textarea` widget of the auto-generated form field.
+    However it is not enforced at the model or database level. Use a
+    :class:`CharField` for that.
 
 .. admonition:: MySQL users
 
@@ -1147,6 +1139,12 @@ avoid the overhead of an index if you are creating a foreign key for
 consistency rather than joins, or if you will be creating an alternative index
 like a partial or multiple column index.
 
+.. warning::
+
+    It is not recommended to have a ``ForeignKey`` from an app without migrations
+    to an app with migrations. See the :ref:`dependencies documentation
+    <unmigrated-dependencies>` for more details.
+
 Database Representation
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1195,6 +1193,11 @@ define the details of how the relation works.
     available in the admin when the field is not listed in
     :attr:`~django.contrib.admin.ModelAdmin.raw_id_fields` in the
     ``ModelAdmin`` for the model.
+
+    .. versionchanged:: 1.7
+
+        Previous versions of Django do not allow passing a callable as a value
+        for ``limit_choices_to``.
 
     .. note::
 
@@ -1311,9 +1314,12 @@ The possible values for :attr:`~ForeignKey.on_delete` are found in
 
     Take no action. If your database backend enforces referential
     integrity, this will cause an :exc:`~django.db.IntegrityError` unless
-    you manually add an SQL ``ON DELETE`` constraint to the database field.
+    you manually add an SQL ``ON DELETE`` constraint to the database field
+    (perhaps using :ref:`initial sql<initial-sql>`).
 
 .. attribute:: ForeignKey.swappable
+
+    .. versionadded:: 1.7
 
     Controls the migration framework's reaction if this :class:`ForeignKey`
     is pointing at a swappable model. If it is ``True`` - the default -
@@ -1372,6 +1378,12 @@ which the model is related, which works exactly the same as it does for
 
 Related objects can be added, removed, or created with the field's
 :class:`~django.db.models.fields.related.RelatedManager`.
+
+.. warning::
+
+    It is not recommended to have a ``ManyToManyField`` from an app without migrations
+    to an app with migrations. See the :ref:`dependencies documentation
+    <unmigrated-dependencies>` for more details.
 
 Database Representation
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -1469,6 +1481,8 @@ that control how the relationship functions.
 
 .. attribute:: ManyToManyField.through_fields
 
+    .. versionadded:: 1.7
+
     Only used when a custom intermediary model is specified. Django will
     normally determine which fields of the intermediary model to use in order
     to establish a many-to-many relationship automatically. However,
@@ -1536,6 +1550,8 @@ that control how the relationship functions.
     It is an error to pass both ``db_constraint`` and ``through``.
 
 .. attribute:: ManyToManyField.swappable
+
+    .. versionadded:: 1.7
 
     Controls the migration framework's reaction if this :class:`ManyToManyField`
     is pointing at a swappable model. If it is ``True`` - the default -
@@ -1770,6 +1786,8 @@ Field API reference
         ``"year"``, ``"month"``, ``"day"``, ``"isnull"``, ``"search"``,
         ``"regex"``, and ``"iregex"``.
 
+        .. versionadded:: 1.7
+
         If you are using :doc:`Custom lookups </ref/models/lookups>` the
         ``lookup_type`` can be any ``lookup_name`` registered in the field.
 
@@ -1820,6 +1838,8 @@ Field API reference
         See :ref:`specifying-form-field-for-model-field` for usage.
 
     .. method:: deconstruct()
+
+        .. versionadded:: 1.7
 
         Returns a 4-tuple with enough information to recreate the field:
 
