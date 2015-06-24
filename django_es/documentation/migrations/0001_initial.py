@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Node',
+            name='SphinxDocument',
             fields=[
                 ('id', models.CharField(max_length=32, serialize=False, primary_key=True)),
                 ('document', models.CharField(max_length=256)),

@@ -1,6 +1,11 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block title %}{{ document.title }}{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" href="{% static "css/pygments.css" %}" />
+{% endblock %}
 
 {% block content %}
 <div class="row">
@@ -11,21 +16,25 @@
         <div class="docs-sidebar">
             {{ document.sidebar|safe }}
         </div>
+		<form action="{% url "docs:search" %}">
+			{{ form }}
+			<input type="submit"/>
+		</form>
     </div>
 </div>
 <div class="row docs-nav">
     <div class="large-12 columns">
         {{ document.relbar|safe }}
     </div>
-</div>    
+</div>
 {% endblock %}
 
-
 {% block domready %}
-    $('h1').hover(function(){
-        $(this).children('.headerlink').fadeIn();
-    },
-    function(){
+    $('h1').hover(
+        function(){
+            $(this).children('.headerlink').fadeIn();
+        },
+        function(){
             $(this).children('.headerlink').fadeOut();
         }
     );

@@ -27,6 +27,6 @@ urlpatterns = patterns('',
     url(r'^comunidad/', include('comunidad.urls', namespace='comunidad')),
     url(r'^formacion/', include('formacion.urls', namespace='formacion')),
     url(r'^libros/', include('libros.urls', namespace='libros')),
-    
+
     url(r'^admin/', include(admin.site.urls)),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

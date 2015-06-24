@@ -5,29 +5,26 @@ from __future__ import absolute_import, unicode_literals
 from sphinx.websupport.storage import StorageBackend
 from sphinx.websupport.errors import DocumentNotFoundError
 
-# app imports
-from .models import Node
-
 
 class ORMStorage(StorageBackend):
     """
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, manager):
+        self._manager = manager
 
     def pre_build(self):
         pass
 
     def has_node(self, id):
         try:
-            node = Node.objects.get(pk=id)
-        except Node.DoesNotExist:
+            node = self._manager.get(pk=id)
+        except self._manager.model.DoesNotExist:
             node = None
         return bool(node)
 
     def add_node(self, id, document, source):
-        node = Node(pk=id, document=document, source=source)
+        node = self._manager.model(pk=id, document=document, source=source)
         node.save()
 
     def post_build(self):
@@ -45,8 +42,8 @@ class ORMStorage(StorageBackend):
 
     def get_data(self, node_id, username=None, moderator=False):
         try:
-            node = Node.objects.get(pk=node_id)
-        except Node.DoesNotExist:
+            node = self._manager.get(pk=node_id)
+        except self._manager.model.DoesNotExist:
             raise DocumentNotFoundError()
         return {'source': node.source,
                 'comments': []}

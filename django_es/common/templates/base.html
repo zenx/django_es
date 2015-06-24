@@ -8,8 +8,10 @@
         <title>{% block title %}Django.es{% endblock %}</title>
         <link rel="stylesheet" href="{% static "css/foundation.min.css" %}" />
         <link rel="stylesheet" href="{% static "css/base.css" %}" />
+        {% block css %}
+        {% endblock %}
         <link rel="icon" href="{% static "favicon.ico" %}" type="image/x-icon" />
-        	<link rel="shortcut icon" href="{% static "favicon.ico" %}" type="image/x-icon" />
+        <link rel="shortcut icon" href="{% static "favicon.ico" %}" type="image/x-icon" />
         <script src="{% static "js/modernizr.js" %}"></script>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     </head>
@@ -34,7 +36,7 @@
                             <li {% if seccion == "intro" %}class="selected"{% endif %}><a href="{% url "intro" %}">Qué es Django</a></li>
                             <li {% if seccion == "blog" %}class="selected"{% endif %}><a href="{% url "blog:entrada_list" %}">Blog</a></li>
                             <li {% if seccion == "descarga" %}class="selected"{% endif %}><a href="{% url "descarga" %}">Descarga</a></li>
-                            <li {% if seccion == "docs" %}class="selected"{% endif %}><a href="{% url "docs:document_index" %}">Documentación</a></li>
+                            <li {% if seccion == "docs" %}class="selected"{% endif %}><a href="{% url "docs:index" %}">Documentación</a></li>
                             <li {% if seccion == "libros" %}class="selected"{% endif %}><a href="{% url "libros:libro_list" %}">Libros</a></li>
                             <li {% if seccion == "empleo" %}class="selected"{% endif %}><a href="{% url "empleo:oferta_list" %}">Empleo</a></li>
                             <li {% if seccion == "formacion" %}class="selected"{% endif %}><a href="{% url "formacion:curso_list" %}">Cursos</a></li>

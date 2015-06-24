@@ -5,11 +5,12 @@ from __future__ import absolute_import, unicode_literals
 from django.conf.urls import patterns, url
 
 # app imports
-from .views import get_document
+from . import views
 
 
 urlpatterns = patterns(
     '',
-    url(r'^$', get_document, name='document_index'),
-    url(r'^(?P<docname>[\w\-/]*?\w)/?$', get_document, name='document'),
+    url(r'^$', views.get_document, name='index'),
+    url(r'^search/?$', views.search_documents, name='search'),
+    url(r'^(?P<docname>[\w\-/]*?\w)/?$', views.get_document, name='document'),
 )
