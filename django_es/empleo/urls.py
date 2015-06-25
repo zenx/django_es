@@ -9,5 +9,6 @@ from .views import oferta_list, oferta_detail
 
 urlpatterns = [
     url(r'^$', oferta_list, name='oferta_list'),
+    url(r'^(?P<pais>[-\w]{2})/$', oferta_list, name='oferta_list_por_pais'),
     url(r'^(?P<oferta>[-\w]+)/$', oferta_detail, name='oferta_detail'),
 ]

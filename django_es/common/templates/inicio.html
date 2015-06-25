@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 {% load django_es_tags %}
+{% load blog_tags %}
 
-{% block title %}
-{% endblock %}
+{% block title %}Django en español. Framework web Python{% endblock %}
 
 {% block content %}
 <div id="slideshow" class="scroll"  data-image="{% static "img/slideshow_bg1.jpg" %}">
     <h1>Django, el framework web Python</h1>
-    <p class="alt">El fram</p>
+    <p class="alt">Desarrolla aplicaciones web rápidamente con Django</p>
 </div>
 
 <div class="row">
@@ -66,15 +66,30 @@
     </div>
 </div>
 
+<div class="box pt40 pb20 mt40 mb40">
 <div class="row">
     <div class="large-12 columns">
         <h2>Lo último en el Blog</h2>
         <div class="row">
-            <div class="large-6 medium-6 small-12 columns">
-                {% for entrada in ultimas_entradas %}
-                {% endfor %}
-            </div>
+            {% get_ultimas_entradas 4 as ultimas_entradas %}
+            {% for entrada in ultimas_entradas %}
+                <div class="large-6 medium-6 small-12 columns">
+                    <h3><a href="{{ entrada.get_absolute_url }}">{{ entrada.titulo }}</a></h3>
+        			<p class="date">
+               			Publicado el {{ entrada.publicado|date:"DATE_FORMAT" }}
+           			</p>
+                    <ul class="tags">
+                        {% for tag in entrada.tags.all %}
+                            <li><a href="{% url "blog_tag_entrada_list" tag.slug %}">{{ tag.name|capfirst }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {{ entrada.html|safe|truncatewords_html:36 }}
+                    <p><a href="{{ entrada.get_absolute_url }}" class="button">Leer más</a></p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
+</div>
 </div>
 
 <div class="row">
