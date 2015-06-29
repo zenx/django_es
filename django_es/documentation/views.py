@@ -2,6 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 # django imports
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -38,11 +39,21 @@ def search_documents(request):
     else:
         query = ''
 
-    document = SphinxDocument.objects.get_search_results(query)
-    return render_to_response('doc.html',
+    search_results = list(SphinxDocument.objects.get_search_results(query))
+    paginator = Paginator(search_results, 10)
+    page = request.GET.get('page', None)
+    try:
+        search_results = paginator.page(page)
+    except PageNotAnInteger:
+        search_results = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        search_results = paginator.page(paginator.num_pages)
+
+    return render_to_response('searchresults.html',
                               {'seccion': 'docs',
                                'request': request,
-                               'document': document,
+                               'search_results': search_results,
                                'form': SearchForm()},
                               context_instance=RequestContext(request))
 

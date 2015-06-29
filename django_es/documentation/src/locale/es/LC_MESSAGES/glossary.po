@@ -1,0 +1,203 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Django Software Foundation and contributors
+# This file is distributed under the same license as the Django package.
+# 
+# Translators:
+# Alexis Sánchez <aasanchez@gmail.com>, 2015
+# Ernesto Avilés Vázquez <whippiii@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: django-docs\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-25 03:09-0500\n"
+"PO-Revision-Date: 2015-04-02 08:20+0000\n"
+"Last-Translator: Jannis Leidel <jannis@leidel.info>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/django-docs/language/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# 4c4cefba22364a67a88af388ecb3e965
+#: ../../../../1.8/docs/glossary.txt:5
+msgid "Glossary"
+msgstr "Glosario de términos"
+
+# 962c05695fb346598100078fed6923c0
+#: ../../../../1.8/docs/glossary.txt:8
+msgid "concrete model"
+msgstr ""
+
+# 32afe94b78be414ead8326de30fdecd0
+#: ../../../../1.8/docs/glossary.txt:10
+msgid ""
+"A non-abstract (:attr:`abstract=False <django.db.models.Options.abstract>`) "
+"model."
+msgstr ""
+
+# 2ecc64ec0fd24570b78eb557d1e2cffd
+#: ../../../../1.8/docs/glossary.txt:12
+msgid "field"
+msgstr "campo"
+
+# 96e22410f848495fa17be08062bf45e1
+#: ../../../../1.8/docs/glossary.txt:14
+msgid ""
+"An attribute on a :term:`model`; a given field usually maps directly to a "
+"single database column."
+msgstr "Un atributo en un :term:`modelo`; el campo dado suele extrapolarse directamente a una sola columna de la base de datos."
+
+# 29d7a97cb0824542bc2f5ba72b36a612
+# f9adf93a1b1540cc8e02f13b10d6907a
+#: ../../../../1.8/docs/glossary.txt:17 ../../../../1.8/docs/glossary.txt:28
+msgid "See :doc:`/topics/db/models`."
+msgstr "Ve :doc:`/topics/db/models`."
+
+# 74d56a1aef9242d78682334052137ff6
+#: ../../../../1.8/docs/glossary.txt:18
+msgid "generic view"
+msgstr "vista genérica"
+
+# fd5221008d4c4041bf2d5e0145304f97
+#: ../../../../1.8/docs/glossary.txt:20
+msgid ""
+"A higher-order :term:`view` function that provides an abstract/generic "
+"implementation of a common idiom or pattern found in view development."
+msgstr "Una función :term:`view` de orden superior que provee una implementación abstracta/genérica a partir un modismo o patrón común encontrado en una vista de desarrollo."
+
+# d2442b08ae934833bf0068ea180fbf45
+#: ../../../../1.8/docs/glossary.txt:23
+msgid "See :doc:`/topics/class-based-views/index`."
+msgstr "Ve :doc:`/topics/class-based-views/index`."
+
+# 8729cd77f6544a3ab51051733da855d4
+#: ../../../../1.8/docs/glossary.txt:24
+msgid "model"
+msgstr "modelo"
+
+# 64525d58786e420983d2f46661da9e8d
+#: ../../../../1.8/docs/glossary.txt:26
+msgid "Models store your application's data."
+msgstr "Los modelos almacenan los datos de tu aplicación."
+
+# 35e1d8a0c8d44d88ad86e70634799f2e
+#: ../../../../1.8/docs/glossary.txt:29
+msgid "MTV"
+msgstr "MTV"
+
+# 54bf9c8439df471e84947cef5f221675
+#: ../../../../1.8/docs/glossary.txt:31
+msgid ""
+"\"Model-template-view\"; a software pattern, similar in style to MVC, but a "
+"better description of the way Django does things."
+msgstr "\"Modelo-plantilla-vista\"; un patrón de software, similar en estilo a MVC, pero una mejor descripción de la forma en que Django funciona."
+
+# 1ec40041d7f74779a0a4ef4ffa8396b4
+#: ../../../../1.8/docs/glossary.txt:34
+msgid "See :ref:`the FAQ entry <faq-mtv>`."
+msgstr "Ve :ref:`el apunto en las FAQ <faq-mtv>`."
+
+# bce5265daa5246b9bced0795cc97e0d1
+#: ../../../../1.8/docs/glossary.txt:35
+msgid "MVC"
+msgstr "MVC"
+
+# b5b96ce935d946e1be235c4388a2114a
+#: ../../../../1.8/docs/glossary.txt:37
+msgid ""
+"`Model-view-controller`__; a software pattern. Django :ref:`follows MVC to "
+"some extent <faq-mtv>`."
+msgstr "`Modelo-vista-controlador`__; un patrón de software. Django  :ref:`sigue MVC en cierta medida <faq-mtv>`."
+
+# a0fe9ef2fc8a4e5186a8ce4125eedee6
+#: ../../../../1.8/docs/glossary.txt:41
+msgid "project"
+msgstr "proyecto"
+
+# fada226e49164785bfa23142543d6a01
+#: ../../../../1.8/docs/glossary.txt:43
+msgid ""
+"A Python package -- i.e. a directory of code -- that contains all the "
+"settings for an instance of Django. This would include database "
+"configuration, Django-specific options and application-specific settings."
+msgstr "Un paquete Python -- e.g: una carpeta de código -- que contiene todos los ajustes para una instancia de Django. Esto podría incluir la configuración de la base de datos, opciones específicas de Django y ajustes específicos de las aplicaciones."
+
+# da44d7f9acb149f9a5568d0047e8ea68
+#: ../../../../1.8/docs/glossary.txt:47
+msgid "property"
+msgstr "propiedad"
+
+# 4a0c2094958d44c0b1f3f959e51a02b1
+#: ../../../../1.8/docs/glossary.txt:49
+msgid ""
+"Also known as \"managed attributes\", and a feature of Python since version "
+"2.2. This is a neat way to implement attributes whose usage resembles "
+"attribute access, but whose implementation uses method calls."
+msgstr "También conocidos como \"atributos gestionados\" , y una funcionalidad de Python desde la versión 2.2. Esta es una forma ordenada de implementar los atributos cuyo uso se parece al acceso a los atributos, pero cuya implementación usa invocaciones a métodos."
+
+# f29d71a639c64e148008d63d52e8c480
+#: ../../../../1.8/docs/glossary.txt:53
+msgid "See :class:`property`."
+msgstr "Ver :func:`property`."
+
+# 3e56a20e96794b86839fc8d9f4625a8a
+#: ../../../../1.8/docs/glossary.txt:54
+msgid "queryset"
+msgstr "queryset"
+
+# 164d3264de074d77ad831077235e14db
+#: ../../../../1.8/docs/glossary.txt:56
+msgid ""
+"An object representing some set of rows to be fetched from the database."
+msgstr "Un objeto que representa un conjunto de filas a ser extraídas de la base de datos."
+
+# 4eb1149fc9e14e379db9ac579941f566
+#: ../../../../1.8/docs/glossary.txt:58
+msgid "See :doc:`/topics/db/queries`."
+msgstr "Ve :doc:`/topics/db/queries`."
+
+# f8428332190b45c4bea503de744c5659
+#: ../../../../1.8/docs/glossary.txt:59
+msgid "slug"
+msgstr "slug"
+
+# 320cfeee85e94bf991fb03febee55a66
+#: ../../../../1.8/docs/glossary.txt:61
+msgid ""
+"A short label for something, containing only letters, numbers, underscores "
+"or hyphens. They're generally used in URLs. For example, in a typical blog "
+"entry URL:"
+msgstr "Una etiqueta corta para algo, que solo contiene letras, números, guiones bajo o raya. Generalmente se usan en las URLs. Por ejemplo en una típica URL de publicación de un blog:"
+
+# 55c4961ef1c545a484477b8e8f7446d9
+#: ../../../../1.8/docs/glossary.txt:69
+msgid "the last bit (``spring``) is the slug."
+msgstr "el último pedazo (``spring``) es el slug."
+
+# d6c453147816428ea67e91bee17fec19
+#: ../../../../1.8/docs/glossary.txt:70
+msgid "template"
+msgstr "plantilla"
+
+# a1885f79b25c47b59e6d72c1b3ae69de
+#: ../../../../1.8/docs/glossary.txt:72
+msgid ""
+"A chunk of text that acts as formatting for representing data. A template "
+"helps to abstract the presentation of data from the data itself."
+msgstr "Un pedazo de texto que hace de formato para representar datos. Una plantilla ayuda a abstraerse de la representación de datos de los datos en sí."
+
+# 5643f5de23f441ae9de9caa9bc2b957b
+#: ../../../../1.8/docs/glossary.txt:76
+msgid "See :doc:`/topics/templates`."
+msgstr "Ve :doc:`/topics/templates`."
+
+# d3a23de6e506429ebc1da3c21394c4d6
+#: ../../../../1.8/docs/glossary.txt:77
+msgid "view"
+msgstr "vista"
+
+# c1c97f1659454c0ab50dc9a1a16dec73
+#: ../../../../1.8/docs/glossary.txt:79
+msgid "A function responsible for rendering a page."
+msgstr "Una función responsable de mostrar una página."

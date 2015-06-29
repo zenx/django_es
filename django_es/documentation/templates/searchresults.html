@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load url_extras %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<div class="row">
+  <dl>
+    {% for result in search_results %}
+    <dt>
+      <h2 class="result-title">
+        <a href="{{ result.href }}">{{ result.caption }}</a>
+      </h2>
+    </dt>
+    <dd>
+      {{ result.context|safe }}
+    </dd>
+    {% endfor %}
+  </dl>
+</div>
+<div class="pagination">
+  <span class="step-links">
+    {% if search_results.has_previous %}
+    <a href="{% add_get page=search_results.previous_page_number %}">previous</a>
+    {% endif %}
+    <span class="current">
+      Page {{ search_results.number }} of {{ search_results.paginator.num_pages }}.
+    </span>
+    {% if search_results.has_next %}
+    <a href="{% add_get page=search_results.next_page_number %}">next</a>
+    {% endif %}
+  </span>
+</div>
+{% endblock %}
+
+{% block domready %}
+    $('h1').hover(
+        function(){
+            $(this).children('.headerlink').fadeIn();
+        },
+        function(){
+            $(this).children('.headerlink').fadeOut();
+        }
+    );
+{% endblock %}
