@@ -33,16 +33,12 @@ class WebSupport(BaseSupport):
         return results
 
     def _process_search_results(self, results, search_term):
-
-        class Result:
-            pass
-
         terms = '|'.join(search_term.split())
         regexp = re.compile(r'(?P<term>{})'.format(terms), re.IGNORECASE)
         for href, caption, context  in results:
-            result = Result()
-            result.href = href
-            result.caption = strip_tags(unicode(caption, 'utf-8'))
-            result.context = regexp.sub('<em>\g<term></em>', context)
+            result = {}
+            result['href'] = href
+            result['caption'] = strip_tags(unicode(caption, 'utf-8'))
+            result['context'] = regexp.sub('<em>\g<term></em>', context)
             yield result
 
