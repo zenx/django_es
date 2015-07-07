@@ -15,8 +15,12 @@ from taggit.managers import TaggableManager
 
 class PerfilAutor(models.Model):
     autor = models.OneToOneField(User,related_name='perfil_blog')
+    imagen = ImageWithThumbsField(blank=True, upload_to='blog/autores/%Y/%m/%d', sizes=((160,160),))
     web = models.URLField(blank=True)
     descripcion = models.TextField()
+    
+    def __unicode__(self):
+        return self.autor.get_full_name()
 
 
 class EntradaManager(models.Manager):
@@ -30,9 +34,15 @@ class Entrada(models.Model):
         ('publicado', 'Publicado'),
     )
     titulo = models.CharField('título', max_length=250)
-    autor = models.ForeignKey(User,related_name='entradas_blog', null=True)
-    slug = models.SlugField(max_length=250, unique=True, blank=True, help_text='Usado para las URLs. No cambiar una vez publicado.')
-    image = ImageWithThumbsField(blank=True, upload_to='blog/%Y/%m/%d', sizes=((40,40),(100,100),(160,160),(290,0), (630,0)))
+    autor = models.ForeignKey(User,
+                              related_name='entradas_blog', null=True)
+    slug = models.SlugField(max_length=250,
+                            unique=True,
+                            blank=True,
+                            help_text='Usado para las URLs. No cambiar una vez publicado.')
+    image = ImageWithThumbsField(blank=True,
+                                 upload_to='blog/articulos/%Y/%m/%d',
+                                 sizes=((40,40),(100,100),(160,160),(290,0), (630,0)))
     descripcion = models.TextField('descripción', help_text='Texto plano para utilizar en el feed RSS')
     rest = models.TextField('markdown', help_text='Cuerpo del artículo. Se puede utilizar el formato Markdown y HTML.')
     html = models.TextField(blank=True, editable=False)
@@ -51,7 +61,7 @@ class Entrada(models.Model):
         ordering = ('-publicado',)
         
     def __unicode__(self):
-        u'{}'.format(self.titulo)
+        return self.titulo
 
     def get_absolute_url(self):
         return reverse('blog:entrada_detail', args=[self.slug])

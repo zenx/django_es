@@ -16,7 +16,7 @@
                 <li {% if not editorial %}class="selected"{% endif %}><a href="{% url "formacion:curso_list" %}">Todos</a></li>
             {% for p in paises %}
                 <li {% if editorial.id == e.id %}class="selected"{% endif %}>
-                    <a href="{% url "formacion:curso_list_por_pais" p.codigo %}">
+                    <a href="{% url "empleo:oferta_list_por_pais" p.codigo %}">
                         {{ p }} ({{ p.cursos.count }})
                     </a>
                 </li>

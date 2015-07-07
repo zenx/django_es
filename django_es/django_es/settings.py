@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'blog',
     'formacion',
     'empleo',
+    'newsletter',
     'taggit',
 )
 

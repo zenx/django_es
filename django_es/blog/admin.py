@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django.contrib import admin
-from .models import Entrada
+from .models import Entrada, PerfilAutor
 from .forms import EntradaAdminForm
 
 
@@ -10,6 +10,7 @@ def previsualizar(obj):
 previsualizar.allow_tags = True
 
 
+@admin.register(Entrada)
 class EntradaAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
@@ -30,4 +31,7 @@ class EntradaAdmin(admin.ModelAdmin):
             return qs.filter(user=request.user)
         return qs
 
-admin.site.register(Entrada, EntradaAdmin)
+
+@admin.register(PerfilAutor)
+class PerfilAutorAdmin(admin.ModelAdmin):
+    list_display = ['autor', 'web']

@@ -7,10 +7,10 @@ from .models import Curso
 
 def curso_list(request, pais=None):
     paises = Pais.objects.filter(es_hispano=True)
+    cursos = Curso.objects.filter(activo=True)
     if pais:
         pais = get_object_or_404(Pais, codigo=pais, es_hispano=True)
         cursos = cursos.filter(pais=pais)
-    cursos = Curso.objects.filter(activo=True)
     return render(request, 'formacion/curso/list.html', {'seccion': 'formacion',
                                                          'cursos': cursos})
 
