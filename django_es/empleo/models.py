@@ -18,7 +18,7 @@ class Oferta(models.Model):
     contacto = models.CharField(max_length=250, blank=True)
     activo = models.BooleanField(default=True)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.titulo
 
     def get_absolute_url(self):

@@ -4,11 +4,13 @@
 from django.conf.urls import url
 
 # django-es imports
-from .views import oferta_list, oferta_detail
+import views
 
 
 urlpatterns = [
-    url(r'^$', oferta_list, name='oferta_list'),
-    url(r'^(?P<pais>[-\w]{2})/$', oferta_list, name='oferta_list_por_pais'),
-    url(r'^(?P<oferta>[-\w]+)/$', oferta_detail, name='oferta_detail'),
+    url(r'^$', views.oferta_list, name='oferta_list'),
+    url(r'^(?P<pais>[-\w]{2})/$', views.oferta_list, name='oferta_list_por_pais'),
+    url(r'^(?P<oferta>[-\w]+)/$', views.oferta_detail, name='oferta_detail'),
+    url(r'^oferta/publicar/$', views.oferta_publicar, name='oferta_publicar'),
+    #url(r'^(?P<oferta>[-\w]+)/aplicar/$', views.oferta_detail, name='oferta_detail'),
 ]

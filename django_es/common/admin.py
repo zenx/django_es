@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Pais
+
+@admin.register(Pais)
+class PaisAdmin(admin.ModelAdmin):
+    list_display = ['codigo', 'nombre', 'es_hispano']

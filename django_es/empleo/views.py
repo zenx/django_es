@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
-from django.shortcuts import render, render
+from django.shortcuts import render, get_object_or_404
 from common.models import Pais
 from .models import Oferta
+from .forms import OfertaForm
 
 
 def oferta_list(request, pais=None):
@@ -12,9 +13,17 @@ def oferta_list(request, pais=None):
         ofertas = ofertas.filter(pais=pais)
 
     return render(request, 'empleo/oferta/list.html', {'seccion': 'empleo',
-                                                       'ofertas': ofertas})
+                                                       'ofertas': ofertas,
+                                                       'paises': paises,
+                                                       'pais': pais})
 
 def oferta_detail(request, oferta):
     oferta = get_object_or_404(Oferta, slug=slug)
     return render(request, 'empleo/oferta/list.html', {'seccion': 'empleo',
                                                        'oferta': oferta})
+
+
+def oferta_publicar(request):
+    form = OfertaForm()
+    if request.method == 'POST':
+        pass

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Cursos de Django (Python){% endblock %}
+{% block title %}Ofertas de trabajo con Django (Python){% endblock %}
 
 {% block content %}
     <div class="row">
@@ -13,26 +13,30 @@
         <div class="medium-4 large-4 columns">
             <h3>País</h3>
             <ul class="menu">
-                <li {% if not editorial %}class="selected"{% endif %}><a href="{% url "formacion:curso_list" %}">Todos</a></li>
+                <li {% if not pais %}class="selected"{% endif %}><a href="{% url "empleo:oferta_list" %}">Todos</a></li>
             {% for p in paises %}
-                <li {% if editorial.id == e.id %}class="selected"{% endif %}>
+                <li {% if pais.id == p.id %}class="selected"{% endif %}>
                     <a href="{% url "empleo:oferta_list_por_pais" p.codigo %}">
-                        {{ p }} ({{ p.cursos.count }})
+                        {{ p }} ({{ p.ofertas.count }})
                     </a>
                 </li>
             {% endfor %}
             </ul>
         </div>
         <div class="medium-8 large-8 columns">
-        	{% for libro in libros %}
-        	    <a href="{{ libro.get_absolute_url }}">
+        	{% for oferta in ofertas %}
+        	    <a href="{{ oferta.get_absolute_url }}">
                     <img src="{{ libro.portada.url }}" alt="{{ libro.titulo }}">
                 </a>
-                <h4><a href="{{ libro.get_absolute_url }}">{{ curso.titulo }}</a></h4>
-                
+                <h3><a href="{{ oferta.get_absolute_url }}">{{ oferta.titulo }}</a></h3>
+                <h4>En <a href="#">{{ oferta.empresa }}</a> - {{ oferta.ciudad }}, <a href="{% url "empleo:oferta_list_por_pais" oferta.pais.codigo %}">{{ oferta.pais }}</a></h4>
+                <h5 class="mt20 mb20">Remuneración: {{ oferta.remuneracion }}</h5>
+
+                {{ oferta.descripcion|linebreaks }}
+
         		<p><span class="texto-secundario">por en {{ curso.ciudad }} ({{ curso.pais }})</span></p>
         	    {{ curso.descripcion|linebreaks }}
-        		<p><a href="{{ libro.url }}" rel="nofollow" class="button">Apuntarme</a></p>
+        		<p><a href="{{ libro.url }}" rel="nofollow" class="button">Aplicar a esta oferta</a></p>
         	{% endfor %}
             {% include "pagination.html" with page=cursos %}
         </div>

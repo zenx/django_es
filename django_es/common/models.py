@@ -14,6 +14,6 @@ class Pais(models.Model):
         ordering = ('nombre',)
         verbose_name = u'país'
         verbose_name_plural = u'países'
-    
-    def __str__(self):
+
+    def __unicode__(self):
         return self.nombre

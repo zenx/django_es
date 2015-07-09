@@ -41,14 +41,13 @@
                             <li {% if seccion == "libros" %}class="selected"{% endif %}><a href="{% url "libros:libro_list" %}">Libros</a></li>
                             <li {% if seccion == "empleo" %}class="selected"{% endif %}><a href="{% url "empleo:oferta_list" %}">Empleo</a></li>
                             <li {% if seccion == "formacion" %}class="selected"{% endif %}><a href="{% url "formacion:curso_list" %}">Cursos</a></li>
-                            <li {% if seccion == "profesionales" %}class="selected"{% endif %}><a href="">Profesionales</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-      
-      
+
+
         <div class="show-for-small-only">
             <ul id="mini-menu" class="hide">
                 <li {% if seccion == "intro" %}class="selected"{% endif %}><a href="{% url "intro" %}">Qué es Django</a></li>
@@ -59,15 +58,15 @@
                 <li {% if seccion == "empleo" %}class="selected"{% endif %}><a href="{% url "empleo:oferta_list" %}">Empleo</a></li>
                 <li {% if seccion == "cursos" %}class="selected"{% endif %}><a href="{% url "formacion:curso_list" %}">Cursos</a></li>
                 <li {% if seccion == "profesionales" %}class="selected"{% endif %}><a href="">Profesionales</a></li>
-            </ul>    
+            </ul>
         </div>
     </div>
-        
+
     <div id="content">
         {% block content %}
         {% endblock %}
-    </div>  
-    
+    </div>
+
     <div style="background:#efefef; color:#7c7c7c; font-weight:400;">
         <div class="row">
             <div class="large-4 columns mt10 mb10">
@@ -104,14 +103,14 @@
     <div id="bottom-bar">
         <a href="#" data-reveal-id="contact-modal" data-reveal>Apúntate al newsletter para recibir información de cursos, etc. en tu correo</a>
     </div>
-    
+
     <script src="{% static "js/jquery.js" %}"></script>
     <script src="{% static "js/foundation.min.js" %}"></script>
     <script type="text/javascript" src="{% static "fancybox/jquery.fancybox.pack.js" %}"></script>
     {% block include_js %}{% endblock %}
 	<script type="text/javascript">
         {% block js %}{% endblock %}
-        
+
         $(document).foundation();
 		$(document).ready(function(){
             /*
@@ -128,15 +127,15 @@
                 $(this).toggleClass('active');
                 $('#mini-menu').toggleClass('hide');
             });
-            
+
             bottom_bar_visible = false;
             $(window).scroll(function() {
-                
-                if ($(window).scrollTop() > 400 && bottom_bar_visible == false) {
+
+                if ($(window).scrollTop() > 1200 && bottom_bar_visible == false) {
                     $('#bottom-bar').fadeIn();
                     bottom_bar_visible = true;
                 }
-                
+
                 if ($(window).scrollTop() > $('#header').height()) {
                     $('#subheader').css({
                         'position': 'fixed',
@@ -153,12 +152,12 @@
                     $('#logo-mini').hide();
                 }
         	});
-            
+
 			{% block domready %}
 			{% endblock %}
-            
+
 		});
-        
+
   </script>
   </body>
 </html>
