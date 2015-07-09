@@ -2,6 +2,7 @@
 {% load static %}
 {% load django_es_tags %}
 {% load blog_tags %}
+{% load libros_tags %}
 
 {% block title %}Django en español. Framework web Python{% endblock %}
 
@@ -15,7 +16,7 @@
     <div class="large-7 medium-7 small-12 columns">
         <h2>¡Descubre Django!</h2>
         <h3>Django es un entorno de desarrollo web escrito en Python que fomenta el desarrollo rápido y el diseño pragmático.</h3>
-    
+
         <div class="row">
             <div class="large-2 columns pt10 text-center">
                 <i class="fa fa-bolt fa-4x g"></i>
@@ -25,7 +26,7 @@
                 <p>Django está diseñado para que los desarrolladores desarrollen aplicaciones desde la conceptualización hasta su finalización lo más ràpido posible.</p>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="large-2 columns pt10 text-center">
                 <i class="fa fa-lock fa-4x g"></i>
@@ -35,7 +36,7 @@
                 <p>Django previene  a los desarrolladores de muchos errores de seguridad común.</p>
             </div>
         </div>
-    
+
         <div class="row">
             <div class="large-2 columns pt10 text-center">
                 <i class="fa fa-dashboard fa-4x g"></i>
@@ -52,12 +53,12 @@
             <a href="{% url "descarga" %}" class="button full-width">Descargar última versión: {{ ultima_version }}</a>
             <a href="">Documentación</a>
         </div>
-        
+
         <h4>Oferta de empleo</h4>
         <div class="box green">
             <a href="">Desarrollador Python</a> en
         </div>
-        
+
         <h4>Profesional destacado</h4>
         <div class="box green">
             <a href="">Zenx IT</a>
@@ -94,14 +95,17 @@
 
 <div class="row">
     <div class="large-12 columns">
-        <h2>Libro recomendado</h2>
+        <h2>Libros recomendados</h2>
+
+        {% get_libros_recomendados 2 as libros_recomendados %}
         <div class="row">
-            <div class="large-3 columns pb40">
-                <a href=""><img src="https://d255esdrn735hr.cloudfront.net/sites/default/files/imagecache/ppv4_main_book_cover/6898OS_Web%20Development%20with%20Django%20Cookbook_Cover_0.jpg"></a>
+        {% for libro in libros_recomendados %}
+            <div class="large-6 columns">
+                <div class="row">
+                    {% include "libros/libro/list-item.html" %}
+                </div>
             </div>
-            <div class="large-9 columns">
-                <h3><a href="">Web Development with Django Cookbook</a></h3>
-            </div>
+        {% endfor %}
         </div>
     </div>
 </div>

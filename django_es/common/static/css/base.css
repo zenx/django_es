@@ -9,12 +9,16 @@ body, p {
     font-size:0.9rem;
 }
 
+span.alt {
+    font-family:Georgia, serif;
+    color:#bbb;
+}
 
 strong {
     font-weight:600;
 }
 
-h1, h2, h3, h4, h5, h6 { 
+h1, h2, h3, h4, h5, h6 {
     color:#0c4b33;
     font-family:"DTLProkyonT", sans-serif;
     font-weight:normal;
@@ -39,7 +43,7 @@ a:hover, a:visited {
 }
 
 /* iconos */
-.fa.g { 
+.fa.g {
     background: -webkit-gradient(
         linear, left top, left bottom,
         from(#a5ffdc), color-stop(50%, #44b78b), color-stop(50%, #3ea27b), to(#35906d));
@@ -63,7 +67,7 @@ a:hover, a:visited {
     background:rgba(76, 221, 166, 0.6);
 }
 
-#header { 
+#header {
     background:#0c4b33;
     color:#44b78b;
     padding:14px 0;
@@ -171,7 +175,7 @@ a:hover, a:visited {
 
 #mini-menu { background:#44b78b; text-decoration:none; list-style:none; margin:0; padding-top:10px; }
 .body-home #mini-menu { padding:70px 0 0 0; }
-#mini-menu li { 
+#mini-menu li {
     text-transform:uppercase;
     font-family:"Roboto", sans-serif;
     font-weight:400;
@@ -199,7 +203,7 @@ a:hover, a:visited {
     font-size:24px;
 }
 
-a.button {
+.button {
     border-radius:5px;
     background:#44b78b;
     color:#fff;
@@ -208,7 +212,11 @@ a.button {
     font-size:20px;
 }
 
-a.button:hover {
+.button.small {
+    font-size:16px;
+}
+
+.button:hover {
     background:#0c4b33;
 }
 
@@ -313,7 +321,7 @@ p.date { font-family:Georgia, serif; color:#bbb; }
 .docs-content h1 {
     font-size:2.2rem;
     margin-bottom:40px;
-    
+
 }
 
 .docs-content h2 {
@@ -374,4 +382,3 @@ h3 code {
     list-style:none;
     padding:0 4px 0 0;
 }
-

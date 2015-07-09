@@ -1,16 +1,6 @@
-# python imports
-import datetime
-
-# django imports
+# -*- encoding: utf-8 -*-
 from django import template
-from django.db.models import Count
-from django.core.exceptions import FieldError
-
-# lenergy imports
 from ..models import Entrada
-
-# 3rd. party libraries
-from taggit.models import TaggedItem, Tag
 
 
 register = template.Library()

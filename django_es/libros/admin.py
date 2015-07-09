@@ -10,8 +10,9 @@ admin.site.register(Editorial, EditorialAdmin)
 
 
 class LibroAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'slug', 'autor', 'editorial', 'anio', 'portada',  'url')
-    list_filter = ('editorial', 'anio')
+    list_display = ('titulo', 'slug', 'autor', 'editorial', 'anio', 'portada',  'url', 'recomendado')
+    list_editable = ('recomendado',)
+    list_filter = ('recomendado', 'editorial', 'anio')
     search_fields = ('titulo', 'autor')
     prepopulated_fields = {'slug': ('titulo',)}
     ordering = ('-anio', 'id')

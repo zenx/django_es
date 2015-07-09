@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from common.models import Pais
 from .models import Oferta
 from .forms import OfertaForm
@@ -28,5 +28,8 @@ def oferta_publicar(request):
     if request.method == 'POST':
         form = OfertaForm(data=request.DATA,
                           files=request.FILES)
+        if form.is_valid():
+            oferta = form.save()
+            return redirect('')
     return render(request, 'empleo/oferta/publicar.html', {'seccion': 'empleo',
-                                                           'oferta': oferta})
+                                                           'form': form})

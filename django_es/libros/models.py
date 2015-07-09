@@ -27,6 +27,7 @@ class Libro(models.Model):
     portada = models.ImageField(upload_to='libros/')
     url = models.URLField()
     descripcion = models.TextField(blank=True)
+    recomendado = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('-anio', 'id')
