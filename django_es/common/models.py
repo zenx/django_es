@@ -12,8 +12,8 @@ class Pais(models.Model):
 
     class Meta:
         ordering = ('nombre',)
-        verbose_name = 'país'
-        verbose_name_plural = 'países'
+        verbose_name = u'país'
+        verbose_name_plural = u'países'
     
     def __str__(self):
         return self.nombre

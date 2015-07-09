@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django.db import models
+from django.core.urlresolvers import reverse
 
 
 class Editorial(models.Model):
@@ -29,6 +30,9 @@ class Libro(models.Model):
 
     class Meta:
         ordering = ('-anio', 'id')
+
+    def get_absolute_url(self):
+        return reverse('libros:libro_detail', args=[self.editorial.slug, self.slug])
 
     def __str__(self):
         return self.titulo
