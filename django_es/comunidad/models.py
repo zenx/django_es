@@ -9,7 +9,7 @@ class Feed(models.Model):
     muerto = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ("titulo",)
+        ordering = ('titulo',)
 
     def __str__(self):
         return self.titulo
@@ -24,7 +24,7 @@ class FeedItem(models.Model):
     publicado = models.DateTimeField()
 
     class Meta:
-        ordering = ("-publicado",)
+        ordering = ('-publicado',)
 
     def __str__(self):
         return self.titulo
