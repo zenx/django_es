@@ -17,6 +17,8 @@ class Oferta(models.Model):
     url = models.URLField(blank=True)
     contacto = models.CharField(max_length=250, blank=True)
     activo = models.BooleanField(default=True)
+    activo = models.BooleanField(default=True)
+    creado = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.titulo

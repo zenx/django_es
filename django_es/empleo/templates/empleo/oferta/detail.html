@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}{{ oferta.titulo }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="large-12 columns">
+            <a href="">Ofertas de empleo</a>
+            <h1>{{ oferta.titulo }}</h1>
+            <h3>{{ oferta.empresa }}. {{ oferta.ciudad }} ({{ oferta.pais.nombre }})</h3>
+            <h4>{{ oferta.remuneracion }}</h4>
+            {{ oferta.descripcion|linebreaks }}
+
+            <p><a href="" class="button">Aplicar</a></p>
+        </div>
+    </div>
+{% endblock %}

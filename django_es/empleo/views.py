@@ -18,12 +18,15 @@ def oferta_list(request, pais=None):
                                                        'pais': pais})
 
 def oferta_detail(request, oferta):
-    oferta = get_object_or_404(Oferta, slug=slug)
-    return render(request, 'empleo/oferta/list.html', {'seccion': 'empleo',
-                                                       'oferta': oferta})
+    oferta = get_object_or_404(Oferta, slug=oferta)
+    return render(request, 'empleo/oferta/detail.html', {'seccion': 'empleo',
+                                                         'oferta': oferta})
 
 
 def oferta_publicar(request):
     form = OfertaForm()
     if request.method == 'POST':
-        pass
+        form = OfertaForm(data=request.DATA,
+                          files=request.FILES)
+    return render(request, 'empleo/oferta/publicar.html', {'seccion': 'empleo',
+                                                           'oferta': oferta})

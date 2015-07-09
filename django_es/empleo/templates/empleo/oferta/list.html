@@ -4,9 +4,15 @@
 
 {% block content %}
     <div class="row">
-        <div class="large-12 columns">
+        <div class="large-8 medium-8 columns">
             <h1>Ofertas de empleo para Django</h1>
             <p>Esta página hace una recopilación de ofertas de empleo para Django. Encuentra un trabajo relacionado con Django y Python. Apúntate a los avisos de empleo:</p>
+        </div>
+        <div class="large-4 medium-4 columns">
+            <div class="box">
+                <a href="{% url "empleo:oferta_publicar" %}" class="button full-width">Publicar una oferta</a>
+                <p>Encuentra el desarrollador Django o Python que estás buscando para tu empresa o proyecto.</p>
+            </div>
         </div>
     </div>
     <div class="row">
