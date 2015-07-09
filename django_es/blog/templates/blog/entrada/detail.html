@@ -26,8 +26,8 @@
 {% block section_content %}
 <div class="row pt40">
 	<div class="large-12 columns mb30">
-		<p><a href="{% url "blog:entrada_list" %}" class="leer"><span class="icon"></span> {% trans "Todos los artículos" %}</a></p>
-	</div>	
+		<p><a href="{% url "blog:entrada_list" %}" class="back link">{% trans "Todos los artículos" %}</a></p>
+	</div>
 	<div class="large-12 columns">
 	    <h1 class="mb10" itemprop="name">{{ entrada.titulo }}</h1>
 		<p class="date">
@@ -40,16 +40,16 @@
                 <li><a href="{% url "blog_tag_entrada_list" tag.slug %}">{{ tag.name|capfirst }}</a></li>
             {% endfor %}
         </ul>
-        
+
 		<div class="recommend">
 		    <div class="fb"><fb:like send="false" data-action="recommend" layout="button_count" width="100" show_faces="false" font="arial"></fb:like></div>
 		    <div class="twitter">
 		        <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ request.build_absolute_uri }}" data-counturl="{{ request.build_absolute_uri }}" data-lang="{{ LANGUAGE_CODE }}">Tweet</a>
                 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-            </div>    
+            </div>
 		    <div class="google"><g:plusone size="medium"></g:plusone></div>
         </div>
-    </div>    
+    </div>
 	<div class="large-12 columns entrada">
 		{% if entrada.imagen %}
 		    <a href="{{ entrada.image.url }}" class="zoom">
@@ -64,9 +64,9 @@
 			{% endif %}
 			</a>
 		{% endif %}
-		{{ entrada.html|safe }} 
+		{{ entrada.html|safe }}
 	</div>
-    
+
 	{% if similar_entradas|length >= 2 %}
 	<div class="large-12 columns">
 		<h3 class="mt30 mb10">Entradas similares</h3>
@@ -79,7 +79,7 @@
         	    <div class="large-6 columns">
         	    {% else %}
         	    <div class="large-6 columns">
-        	    {% endif %}   
+        	    {% endif %}
         	        <div class="item">
         	            <div  class="image">{% if entrada.image %}<a href="{{ entrada.get_absolute_url }}"><img src="{{ entrada.image.url_40x40 }}" alt="{{ entrada.title }}" /></a>{% else %}&nbsp;{% endif %}</div>
                         <p class="date">{{ entrada.publicado|date:"DATE_FORMAT" }}</p>
@@ -88,7 +88,7 @@
         	    </div>
         	{% endfor %}
         </div>
-		
+
 		{% if similar_entradas|length >= 4 %}
         <div class="row">
         	{% for entrada in similar_entradas|slice:'2:4' %}
@@ -96,7 +96,7 @@
         	    <div class="large-6 columns">
         	    {% else %}
         	    <div class="large-6 columns">
-        	    {% endif %}   
+        	    {% endif %}
         	        <div class="item">
         	            <div  class="image">{% if entrada.image %}<a href="{{ entrada.get_absolute_url }}"><img src="{{ entrada.image.url_40x40 }}" alt="{{ entrada.title }}" /></a>{% else %}&nbsp;{% endif %}</div>
                         <p class="date">{{ entrada.publicado|date:"DATE_FORMAT" }}</p>

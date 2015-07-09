@@ -6,11 +6,11 @@ from django.db.models import Count
 from .models import Libro, Editorial
 
 
-def libro_detail(request, editorial_slug, slug):
+def libro_detail(request, slug):
     seccion = 'libros'
-    libro = get_object_or_404(Libro, slug=slug,
-                                     editorial__slug=editorial_slug)
-    return render(request, 'libros/libro/detail.html', locals())
+    libro = get_object_or_404(Libro, slug=slug)
+    return render(request, 'libros/libro/detail.html', {'seccion': 'libros',
+                                                        'libro': libro})
 
 
 def libro_list(request, editorial_slug=None):
@@ -23,7 +23,7 @@ def libro_list(request, editorial_slug=None):
 
     paginator = Paginator(objects, 6)
     page = int(request.GET.get('page', '1'))
-    
+
     page = request.GET.get('page')
     try:
         libros = paginator.page(page)

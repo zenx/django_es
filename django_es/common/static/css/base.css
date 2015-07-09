@@ -76,7 +76,7 @@ a:hover, a:visited {
 
 #header .tagline {
     font-size:18px;
-    margin-top:10px;
+    margin-top:8px;
     line-height:1.3;
 }
 
@@ -102,6 +102,21 @@ a:hover, a:visited {
 }
 .body-home #content {
     margin-top:0;
+}
+
+#pre-footer {
+    background:#efefef;
+    color:#7c7c7c;
+    font-weight:400;
+}
+
+#pre-footer input {
+    float:left;
+}
+
+#pre-footer input[type=email] {
+    width:280px;
+    margin:6px 10px 0 0;
 }
 
 #footer {
@@ -186,7 +201,8 @@ a:hover, a:visited {
 
 .box {
     background:#f8f8f8;
-    padding:20px;
+    padding:20px 20px 0;
+    overflow:auto;
 }
 
 .box.green {
@@ -201,6 +217,26 @@ a:hover, a:visited {
     font-size:2em;
     font-weight:200;
     font-size:24px;
+}
+
+.link {
+    font-family:"Roboto", sans-serif;
+    text-transform: uppercase;
+    font-weight:500;
+}
+
+.link:after {
+    margin-left:4px;
+    content: "→";
+}
+
+.link.back:after {
+    content:none;
+}
+
+.link.back:before {
+    content: "←";
+    margin-right:4px;
 }
 
 .button {
@@ -293,6 +329,26 @@ ul.menu a {
     display:block;
 }
 
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea {
+    border:1px solid #44b78b;
+    border-radius:4px;
+    padding:8px 12px;
+    box-shadow: none;
+}
+
 p.date { font-family:Georgia, serif; color:#bbb; }
 
 .pt0 { padding-top:0px; }
@@ -381,4 +437,8 @@ h3 code {
 .docs-nav ul li {
     list-style:none;
     padding:0 4px 0 0;
+}
+
+.by-zenx {
+    padding-top:32px;
 }

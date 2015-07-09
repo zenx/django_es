@@ -4,13 +4,13 @@ from django.contrib.auth.models import User
 
 class Feed(models.Model):
     titulo = models.CharField(max_length=250)
-    feed_url = models.URLField(unique=True, max_length=250,verify_exists=False)
-    public_url = models.URLField(max_length=250,verify_exists=False)
+    feed_url = models.URLField(unique=True, max_length=250)
+    public_url = models.URLField(max_length=250)
     muerto = models.BooleanField(default=False)
-    
+
     class Meta:
         ordering = ("titulo",)
-    
+
     def __str__(self):
         return self.titulo
 
@@ -25,7 +25,7 @@ class FeedItem(models.Model):
 
     class Meta:
         ordering = ("-publicado",)
-    
+
     def __str__(self):
         return self.titulo
 

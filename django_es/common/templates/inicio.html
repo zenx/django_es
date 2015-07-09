@@ -48,10 +48,10 @@
         </div>
     </div>
     <div class="large-5 medium-5 small-12 columns">
-        <div class="box mb30">
+        <div class="box text-center">
             {% ultima_version_django as ultima_version %}
             <a href="{% url "descarga" %}" class="button full-width">Descargar última versión: {{ ultima_version }}</a>
-            <a href="">Documentación</a>
+            <p><a href="{% url "docs:index" %}" class="link">Documentación</a></p>
         </div>
 
         <h4>Oferta de empleo</h4>
@@ -75,17 +75,27 @@
             {% get_ultimas_entradas 4 as ultimas_entradas %}
             {% for entrada in ultimas_entradas %}
                 <div class="large-6 medium-6 small-12 columns">
-                    <h3><a href="{{ entrada.get_absolute_url }}">{{ entrada.titulo }}</a></h3>
-        			<p class="date">
-               			Publicado el {{ entrada.publicado|date:"DATE_FORMAT" }}
-           			</p>
-                    <ul class="tags">
-                        {% for tag in entrada.tags.all %}
-                            <li><a href="{% url "blog_tag_entrada_list" tag.slug %}">{{ tag.name|capfirst }}</a></li>
-                        {% endfor %}
-                    </ul>
-                    {{ entrada.html|safe|truncatewords_html:36 }}
-                    <p><a href="{{ entrada.get_absolute_url }}" class="button">Leer más</a></p>
+                    <div class="row">
+                        <div class="large-3 columns text-right">
+                            <p class="date">
+                                <img src="https://media.licdn.com/mpr/mpr/shrink_100_100/p/4/005/08b/33d/06fec60.jpg" style="border-radius:50%; width:80px;">
+                       			<br>Por {{ entrada.autor.first_name }}
+                   			</p>
+                        </div>
+                        <div class="large-9 columns"
+                            <h3><a href="{{ entrada.get_absolute_url }}">{{ entrada.titulo }}</a></h3>
+                			<p class="date">
+                                Publicado el {{ entrada.publicado|date:"DATE_FORMAT" }}
+                   			</p>
+                            <ul class="tags">
+                                {% for tag in entrada.tags.all %}
+                                    <li><a href="{% url "blog_tag_entrada_list" tag.slug %}">{{ tag.name|capfirst }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            {{ entrada.html|safe|truncatewords_html:36 }}
+                            <p><a href="{{ entrada.get_absolute_url }}" class="link">Leer más</a></p>
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
         </div>

@@ -18,7 +18,7 @@ class Editorial(models.Model):
 
 
 class Libro(models.Model):
-    titulo = models.CharField('título', max_length=250)
+    titulo = models.CharField('título', max_length=250, db_index=True)
     slug = models.SlugField(max_length=100,
                             unique=True)
     autor = models.CharField('autor', max_length=120)
@@ -33,7 +33,7 @@ class Libro(models.Model):
         ordering = ('-anio', 'id')
 
     def get_absolute_url(self):
-        return reverse('libros:libro_detail', args=[self.editorial.slug, self.slug])
+        return reverse('libros:libro_detail', args=[self.slug])
 
     def __str__(self):
         return self.titulo

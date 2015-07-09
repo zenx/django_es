@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ libro.titulo }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="medium-4 large-4 columns">
+        <a href="{{ libro.get_absolute_url }}">
+            <img src="{{ libro.portada.url }}" alt="{{ libro.titulo }}">
+        </a>
+    </div>
+    <div class="medium-8 large-8 columns">
+        <h1>{{ libro.titulo }}</h1>
+
+        <h5>{{ libro.anio }} {{ libro.editorial }} – {{ libro.autor }}</h5>
+        {{ libro.descripcion|linebreaks }}
+        <p><a href="{{ libro.url }}" target="_blank" rel="nofollow" class="button small">Comprar {{ libro.titulo }}</a></p>
+    </div>
+</div>
+{% endblock %}

@@ -29,12 +29,12 @@
 <div class="row pt40">
 	{% if tag %}
 		<div class="large-12 columns mb20">
-			<p><a href="{% url "blog:entrada_list" %}" class="leer"><span class="icon"></span> {% trans "Todos los artículos" %}</a></p>
+			<p><a href="{% url "blog:entrada_list" %}" class="back link">{% trans "Todos los artículos" %}</a></p>
 			<h1 class="mb0">{{ tag.name|capfirst }}</h1>
 			<hr class="mt10" />
 		</div>
 	{% endif %}
-	
+
 	{% for entrada in entradas %}
 	    <div class="large-12 columns">
 			<h2><a href="{% url "blog:entrada_detail" entrada.slug %}">{{ entrada.titulo }}</a></h2>
@@ -48,26 +48,26 @@
                     <li><a href="{% url "blog_tag_entrada_list" tag.slug %}">{{ tag.name|capfirst }}</a></li>
                 {% endfor %}
             </ul>
-                    
+
    			<div class="clear">&nbsp;</div>
-		</div>    
-		<div class="large-12 columns mb40 entrada">	
+		</div>
+		<div class="large-12 columns mb40 entrada">
   			{% if entrada.imagen %}
   				<a href="{% url "blog:entrada_detail" entrada.slug %}">
 					{% if entrada.imagen.width > 290 %}
 						<img src="{{ entrada.image.url_290x0 }}" alt="{% trans "Leer" %} {{ entrada.title }}" class="thumbnail entrada-image" />
 					{% else %}
 						<img src="{{ entrada.image.url }}" alt="{% trans "Leer" %} {{ entrada.title }}" class="thumbnail entrada-image" />
-					{% endif %}    
+					{% endif %}
 				</a>
 			{% endif %}
 			{% if entrada.html|wordcount > 150 %}
-			    {{ entrada.html|safe|truncatewords_html:120 }} 
-			{% else %}    
+			    {{ entrada.html|safe|truncatewords_html:120 }}
+			{% else %}
 			    {{ entrada.html|safe }}
 			{% endif %}
 			{% if entrada.html|wordcount > 150 %}
-				<p style="text-align:right;"><a href="{% url "blog:entrada_detail" entrada.slug %}" class="top20">Continuar leyendo ›</a></p>
+				<p style="text-align:right;"><a href="{% url "blog:entrada_detail" entrada.slug %}" class="link">Continuar leyendo</a></p>
 			{% endif %}
   		</div>
 	{% empty %}
@@ -77,6 +77,6 @@
 	    {% include "pagination.html" with page=entradas %}
 	</div>
 
-		
+
 </div>
 {% endblock %}

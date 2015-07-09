@@ -40,24 +40,22 @@
                             <li {% if seccion == "docs" %}class="selected"{% endif %}><a href="{% url "docs:index" %}">Documentación</a></li>
                             <li {% if seccion == "libros" %}class="selected"{% endif %}><a href="{% url "libros:libro_list" %}">Libros</a></li>
                             <li {% if seccion == "empleo" %}class="selected"{% endif %}><a href="{% url "empleo:oferta_list" %}">Empleo</a></li>
-                            <li {% if seccion == "formacion" %}class="selected"{% endif %}><a href="{% url "formacion:curso_list" %}">Cursos</a></li>
+                            <li {% if seccion == "formacion" %}class="selected"{% endif %}><a href="{% url "formacion:curso_list" %}">Formación</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-
         <div class="show-for-small-only">
             <ul id="mini-menu" class="hide">
                 <li {% if seccion == "intro" %}class="selected"{% endif %}><a href="{% url "intro" %}">Qué es Django</a></li>
                 <li {% if seccion == "blog" %}class="selected"{% endif %}><a href="{% url "blog:entrada_list" %}">Blog</a></li>
                 <li {% if seccion == "descarga" %}class="selected"{% endif %}><a href="{% url "descarga" %}">Descarga</a></li>
-                <li {% if seccion == "docs" %}class="selected"{% endif %}><a href="#">Documentación</a></li>
+                <li {% if seccion == "docs" %}class="selected"{% endif %}><a href="{% url "docs:index" %}">Documentación</a></li>
                 <li {% if seccion == "libros" %}class="selected"{% endif %}><a href="{% url "libros:libro_list" %}">Libros</a></li>
                 <li {% if seccion == "empleo" %}class="selected"{% endif %}><a href="{% url "empleo:oferta_list" %}">Empleo</a></li>
-                <li {% if seccion == "cursos" %}class="selected"{% endif %}><a href="{% url "formacion:curso_list" %}">Cursos</a></li>
-                <li {% if seccion == "profesionales" %}class="selected"{% endif %}><a href="">Profesionales</a></li>
+                <li {% if seccion == "formacion" %}class="selected"{% endif %}><a href="{% url "formacion:curso_list" %}">Formación</a></li>
             </ul>
         </div>
     </div>
@@ -67,36 +65,62 @@
         {% endblock %}
     </div>
 
-    <div style="background:#efefef; color:#7c7c7c; font-weight:400;">
+    <div id="pre-footer">
         <div class="row">
-            <div class="large-4 columns mt10 mb10">
+            <div class="large-6 columns mt10 mb10">
                 {% get_newsletter_subscriptor_form as newsletter_form %}
                 <form action="" method="post">
-                    <p>Suscríbete al newsletter</p>
+                    <h5>Suscríbete al newsletter</h5><br>
                     {{ newsletter_form.email }}
-                    <input type="submit" value="Suscribirme">
+                    <input type="submit" class="button small" value="Suscribirme">
                 </form>
             </div>
-            <div class="large-8 columns text-right">
-                <span class="copyright">Hecho a mano por </span>
-                <a href="http://zenxit.com/" target="_blank"><img src="{% static "img/zenxit_logo.png" %}" style="width:180px;"></a>
+            <div class="large-6 columns text-right">
+                <div class="by-zenx">
+                    <span class="copyright">Hecho a mano por </span>
+                    <a href="http://zenxit.com/" target="_blank"><img src="{% static "img/zenxit_logo.png" %}" style="width:180px;"></a>
+                </div>
             </div>
         </div>
     </div>
     <div id="footer">
         <div class="row">
-            <div class="large-4 columns">
+            <div class="large-3 medium-3 small-12 columns">
+                <h5>Documentación</h5>
+                <ul>
+                    <li><a href="{% url "docs:document" "intro/overview/" %}">Introducción a Django</a></li>
+                    <li><a href="{% url "docs:document" "intro/install/" %}">Instalar Django</a></li>
+                    <li><a href="{% url "docs:document" "intro/tutorial01/" %}">Tutorial de Django</a></li>
+                    <li><a href="{% url "docs:document" "topics/db/models/" %}">Modelos</a></li>
+                    <li><a href="{% url "docs:document" "topics/http/views/" %}">Vistas</a></li>
+                    <li><a href="{% url "docs:document" "topics/http/urls/" %}">URLs</a></li>
+                    <li><a href="{% url "docs:document" "topics/templates/" %}">Plantillas</a></li>
+                    <li><a href="{% url "docs:document" "topics/forms/" %}">Formularios</a></li>
+                </ul>
+            </div>
+
+            <div class="large-5 medium-5 small-12 columns">
                 <h5>Entradas del blog</h5>
-                {% get_ultimas_entradas 6 as ultimas_entradas %}
+                {% get_ultimas_entradas 7 as ultimas_entradas %}
                 <ul>
                 {% for entrada in ultimas_entradas %}
                     <li><a href="{{ entrada.get_absolute_url }}">{{ entrada.titulo }}</a></li>
                 {% endfor %}
                 </ul>
             </div>
-            <div class="large-8 columns">
-                <img src="{% static "img/python.png" %}" style="width:80px; margin:0;">
-                <span>Framework web <a href="http://www.python.org/" target="_blank">Python</a></span>
+
+            <div class="large-4 medium-4 small-12 columns">
+                <h5>Comunidad</h5>
+                {% get_ultimas_entradas 6 as ultimas_entradas %}
+                <ul>
+                {% for entrada in ultimas_entradas %}
+                    <li><a href="{{ entrada.get_absolute_url }}">{{ entrada.titulo }}</a></li>
+                {% endfor %}
+                </ul>
+                <div class="text-right mt40">
+                    <img src="{% static "img/python.png" %}" style="width:80px; margin:0;">
+                    <span>Framework web <a href="http://www.python.org/" target="_blank">Python</a></span>
+                </div>
             </div>
         </div>
     </div>

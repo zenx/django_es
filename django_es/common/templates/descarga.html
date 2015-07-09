@@ -1,25 +1,26 @@
 {% extends "base.html" %}
 {% load static %}
 {% load django_es_tags %}
+{% load libros_tags %}
 
 {% block title %}¿Qué es Django?{% endblock %}
 
 {% block content %}
 {% ultima_version_django as ultima_version %}
 <div class="row">
-    <div class="large-12 columns">
+    <div class="large-8 medium-8 columns">
         <h1>Descarga Django</h1>
         <p>
         	Django está disponible bajo la licencia libre <a href="http://code.djangoproject.com/file/django/trunk/LICENSE">BSD</a>. Django requiere Python versión 2.4 o superior pero no depende de otras librerías de Python. Hay un par de maneras de obtener Django:
         	</p>
-	
+
         	<h3>Opción 1. Obtener la última versión oficial de Django</h3>
         	<p>
         		La última versión oficial de Django es la {{ ultima_version }}. Para conseguirla descarga primero <a href="http://www.djangoproject.com/download/{{ ultima_version }}/tarball/">Django-{{ ultima_version }}.tar.gz</a>. Después:</p>
         	<pre class="literal-block"><code>tar xzvf Django-{{ ultima_version }}.tar.gz
 cd Django-{{ ultima_version }}
 sudo python setup.py install</code></pre>
-	
+
         	<h3>Opción 2. Obtener la última versión de desarrollo</h3>
         	<p>
         		La última y mejor versión de Django es la que está en el repositorio Subversion (sistema de control de versiones). Consíguela usando este comando de shell que requiere <a href="http://git-scm.com">Git</a>:</p>
@@ -33,6 +34,21 @@ sudo python setup.py install</code></pre>
         	<p>
         		Asegúrate de darte de alta en la lista de correo de Django <a href="http://groups.google.com/group/django-es">en español</a> y/o la <a href="http://groups.google.com/group/django-users">lista de correo oficial en inglés</a> donde otros usuarios de Django y los desarrolladores de Django se ayudan mutuamente. Lee el <a href="/blog/">blog de django.es</a> o suscríbete al <a href="/feeds/blog/">feed RSS</a>. También nos puedes seguir en <a href="http://twitter.com/django_es">Twitter</a>.
         	</p>
-    </div>      
+    </div>
+    <div class="large-4 medium-4 columns">
+        <div class="box">
+            <h4>Libro sobre Django</h4>
+            {% get_libros_recomendados 1 as libros_recomendados %}
+            {% with libro=libros_recomendados.0 %}
+                <a href="{{ libro.get_absolute_url }}">
+                    <img src="{{ libro.portada.url }}" alt="{{ libro.titulo }}">
+                </a>
+                <h5><a href="{{ libro.get_absolute_url }}">{{ libro.titulo }}</a></h5>
+                <p><span class="alt">{{ libro.anio }} – {{ libro.autor }}</span></p>
+                {{ libro.descripcion|linebreaks }}
+                <a href="{{ libro.url }}" target="_blank" rel="nofollow" class="button small full-width">Comprar {{ libro.titulo }}</a>
+            {% endwith %}
+        </div>
+    </div>
 </div>
 {% endblock %}
