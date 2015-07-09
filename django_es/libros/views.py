@@ -21,7 +21,7 @@ def libro_list(request, editorial_slug=None):
         editorial = get_object_or_404(Editorial, slug=editorial_slug)
         objects = objects.filter(editorial=editorial)
 
-    paginator = Paginator(objects, 1)
+    paginator = Paginator(objects, 6)
     page = int(request.GET.get('page', '1'))
     
     page = request.GET.get('page')
