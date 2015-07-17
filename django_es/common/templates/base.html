@@ -3,7 +3,7 @@
 {% load newsletter_tags %}
 {% load comunidad_tags %}
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="es">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -71,7 +71,7 @@
             <div class="large-6 columns mt10 mb10">
                 {% get_newsletter_subscriptor_form as newsletter_form %}
                 <form action="" method="post">
-                    <h5>Suscríbete al newsletter</h5><br>
+                    <label>Suscríbete al newsletter</label><br>
                     {{ newsletter_form.email }}
                     <input type="submit" class="button small" value="Suscribirme">
                 </form>
@@ -125,29 +125,18 @@
             </div>
         </div>
     </div>
-    <div id="bottom-bar">
-        <a href="#" data-reveal-id="contact-modal" data-reveal>Apúntate al newsletter para recibir información de cursos, etc. en tu correo</a>
-    </div>
 
     <script src="{% static "js/jquery.js" %}"></script>
     <script src="{% static "js/foundation.min.js" %}"></script>
-    <script type="text/javascript" src="{% static "fancybox/jquery.fancybox.pack.js" %}"></script>
+
     {% block include_js %}{% endblock %}
-	<script type="text/javascript">
+
+    <script type="text/javascript">
         {% block js %}{% endblock %}
 
         $(document).foundation();
 		$(document).ready(function(){
-            /*
-            $(".fancybox").fancybox({
-                'padding' : 0,
-                'helpers': {
-                    'overlay': {
-                      'locked': false
-                    }
-                  }
-            });
-            */
+
             $('#expand-menu').click(function() {
                 $(this).toggleClass('active');
                 $('#mini-menu').toggleClass('hide');
@@ -155,12 +144,6 @@
 
             bottom_bar_visible = false;
             $(window).scroll(function() {
-
-                if ($(window).scrollTop() > 1200 && bottom_bar_visible == false) {
-                    $('#bottom-bar').fadeIn();
-                    bottom_bar_visible = true;
-                }
-
                 if ($(window).scrollTop() > $('#header').height()) {
                     $('#subheader').css({
                         'position': 'fixed',
@@ -177,7 +160,6 @@
                     $('#logo-mini').hide();
                 }
         	});
-
 			{% block domready %}
 			{% endblock %}
 

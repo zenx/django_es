@@ -20,18 +20,27 @@ strong {
 
 h1, h2, h3, h4, h5, h6 {
     color:#0c4b33;
+    letter-spacing: -0.4pt;
     font-family:"DTLProkyonT", sans-serif;
     font-weight:normal;
 }
 
-h3, h4 { color:#44b78b; }
-
-a {
-    color:#44b78b;
+h4, h5, h6 {
+    letter-spacing: -0.2pt;
 }
 
-a:hover, a:visited {
-    color:#44b78b;
+h1 {
+    font-size:2.5rem;
+}
+
+h3, h4 { color:#44b78b; }
+
+a, a:visited {
+    color: #20AA76;
+}
+
+a:hover, a:active {
+    color: #25c488;
 }
 
 ::selection {
@@ -110,6 +119,13 @@ a:hover, a:visited {
     font-weight:400;
 }
 
+#pre-footer label {
+    margin-top:20px;
+    font-family:"Roboto", sans-serif;
+    font-weight:500;
+    text-transform:uppercase;
+}
+
 #pre-footer input {
     float:left;
 }
@@ -127,9 +143,17 @@ a:hover, a:visited {
     overflow:auto;
 }
 
+#footer a {
+    color:#c9f0dd;
+}
+
+#footer a:hover {
+    color:#fff;
+}
+
 #footer h5 {
     text-transform:uppercase;
-    margin-bottom:30px;
+    margin:10px 0 30px;
 }
 
 #footer ul {
@@ -141,13 +165,6 @@ a:hover, a:visited {
 #footer li {
     margin-bottom:8px;
 }
-
-#footer a, #footer a:hover {
-    color:#fff;
-}
-
-#bottom-bar { display:none; background:rgba(76, 221, 166, 0.6); color:#fff; position:fixed; width:100%; bottom:0; text-align:center; }
-#bottom-bar a { color:#fff; display:block; padding:20px 0; }
 
 #menu {
     list-style:none;
@@ -205,6 +222,10 @@ a:hover, a:visited {
     overflow:auto;
 }
 
+.box h3, .box h4, .box h5 {
+    color:#0c4b33;
+}
+
 .box.green {
     background:#44b78b;
     color:#0c4b33;
@@ -239,17 +260,22 @@ a:hover, a:visited {
     margin-right:4px;
 }
 
-.button {
+a.button, input.button, .docs-sidebar input[type=submit] {
     border-radius:5px;
     background:#44b78b;
     color:#fff;
     font-family:"DTLProkyonT", sans-serif;
     font-weight:normal;
     font-size:20px;
+    border:0;
 }
 
-.button.small {
+.button.small, .docs-sidebar input[type=submit] {
     font-size:16px;
+}
+
+.docs-sidebar input[type=submit] {
+    padding:10px 20px;
 }
 
 .button:hover {
@@ -260,7 +286,7 @@ a:hover, a:visited {
     font-family:"DTLProkyonT", sans-serif;
     text-align:center;
     color:#fff;
-    background:url('../img/slideshow_bg1.jpg') no-repeat center top;
+    background:url('../img/bg2.jpg') no-repeat center -400px;
     -webkit-background-size: cover;
      -moz-background-size: cover;
      -o-background-size: cover;
@@ -441,4 +467,30 @@ h3 code {
 
 .by-zenx {
     padding-top:32px;
+}
+
+ul.tags {
+    list-style:none;
+    margin:0;
+    padding:0;
+    overflow:auto;
+}
+
+ul.tags li {
+    float:left;
+    margin-right:10px;
+    border:1px solid #44b78b;
+    border-radius:4px;
+    margin-bottom:10px;
+}
+
+ul.tags li a {
+    display:block;
+    width:100%;
+    height:100%;
+    padding:4px 10px;
+}
+
+.pagination .current {
+    padding:0 20px;
 }

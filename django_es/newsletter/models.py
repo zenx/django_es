@@ -9,6 +9,8 @@ class Suscriptor(models.Model):
 
     class Meta:
         ordering = ('creado',)
-    
+        verbose_name = u'suscriptor'
+        verbose_name_plural = u'suscriptores'
+
     def __unicode__(self):
         return self.email

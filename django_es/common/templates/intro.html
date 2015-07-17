@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="row">
-    <div class="large-12 columns">
+    <div class="large-8 medium-8 columns">
         <h1>¿Qué es Django?</h1>
         <div class="green box mt30 mb30">
             <h2>Django se inventó para satisfacer rápido movimiento plazos de redacción, al tiempo que satisface los exigentes requisitos de los desarrolladores web experimentados.</h2>
@@ -29,6 +29,9 @@
 
         Increíblemente versátil.</h3>
         <p>Empresas, organizaciones y gobiernos han usado Django para construir todo tipo de cosas - de los sistemas de gestión de contenidos a las redes sociales a las plataformas de computación científica.</p>
+    </div>
+    <div class="large-4 medium-4 columns">
+        {% include "sidebar/libro.html" %}
     </div>
 </div>
 {% endblock %}

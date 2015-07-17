@@ -1,0 +1,14 @@
+{% load libros_tags %}
+<div class="box">
+    <h4>Libro sobre Django</h4>
+    {% get_libros_recomendados 1 as libros_recomendados %}
+    {% with libro=libros_recomendados.0 %}
+        <a href="{{ libro.get_absolute_url }}">
+            <img src="{{ libro.portada.url }}" alt="{{ libro.titulo }}">
+        </a>
+        <h5><a href="{{ libro.get_absolute_url }}">{{ libro.titulo }}</a></h5>
+        <p><span class="alt">{{ libro.anio }} – {{ libro.autor }}</span></p>
+        {{ libro.descripcion|linebreaks }}
+        <a href="{{ libro.url }}" target="_blank" rel="nofollow" class="button small full-width">Comprar {{ libro.titulo }}</a>
+    {% endwith %}
+</div>
