@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+{% load blog_tags %}
+
+{% block title %}{{ autor.get_full_name }}{% endblock %}
+
+{% block section_content %}
+{% with perfil=autor.blog_perfil %}
+    <div class="row pt40">
+        <div class="large-2 columns">
+            <img src="{{ perfil.imagen.url }}">
+    	<div class="large-12 columns mb30">
+    		<h1>{{ autor.get_full_name }}</h1>
+            <h3>Sitio web: {{ autor.url }}</h3>
+            {{ perfil.description }}
+            <h3>Entradas escritas por {{ autor.first_name }}</h3>
+            <ul>
+                {% for entrada in entradas %}
+                    <li><a href="{{ entrada.get_absolute_url }}">{{ entrada.titulo }}</a></li>
+                {% endfor %}
+            </ul>
+    	</div>
+    </div>
+{% endblock %}

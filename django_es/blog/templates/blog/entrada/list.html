@@ -26,26 +26,27 @@
 {% endblock %}
 
 {% block section_content %}
-<div class="row pt40">
+<div class="row">
 	{% if tag %}
-		<div class="large-12 columns mb20">
-			<p><a href="{% url "blog:entrada_list" %}" class="back link">{% trans "Todos los artículos" %}</a></p>
+		<div class="large-12 columns">
+			<p><a href="{% url "blog:entrada_list" %}" class="back link">Todos los artículos</a></p>
 			<h1 class="mb0">{{ tag.name|capfirst }}</h1>
-			<hr class="mt10" />
 		</div>
 	{% endif %}
 
 	{% for entrada in entradas %}
+        {% with autor=entrada.autor %}
 	    <div class="large-12 columns">
 			<h2><a href="{% url "blog:entrada_detail" entrada.slug %}">{{ entrada.titulo }}</a></h2>
 			<p class="date">
-       			{% trans "Publicado el" %} {{ entrada.publicado|date:"DATE_FORMAT" }}.
+       			Publicado el {{ entrada.publicado|date:"DATE_FORMAT" }} por
+                <a href="{% url "blog:autor_detail" autor.username %}">{{ autor.get_full_name }}</a>
    			</p>
         </div>
         <div class="large-12 columns">
             <ul class="tags">
                 {% for tag in entrada.tags.all %}
-                    <li><a href="{% url "blog_tag_entrada_list" tag.slug %}">{{ tag.name|capfirst }}</a></li>
+                    <li><a href="{% url "blog:entrada_tag_list" tag.slug %}">{{ tag.name|capfirst }}</a></li>
                 {% endfor %}
             </ul>
 
@@ -70,6 +71,7 @@
 				<p style="text-align:right;"><a href="{% url "blog:entrada_detail" entrada.slug %}" class="link">Continuar leyendo</a></p>
 			{% endif %}
   		</div>
+        {% endwith %}
 	{% empty %}
 		<p>No existen artículos{% if category %} para esta categoría{% endif %}.</p>
 	{% endfor %}

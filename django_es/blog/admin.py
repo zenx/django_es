@@ -12,6 +12,11 @@ previsualizar.allow_tags = True
 
 @admin.register(Entrada)
 class EntradaAdmin(admin.ModelAdmin):
+    list_display  = ['titulo', 'slug', 'autor', 'creado', 'publicado', 'estado']
+    list_filter   = ['autor', 'estado', 'publicado', 'creado']
+    ordering      = ['-publicado']
+    search_fields = ['titulo']
+    prepopulated_fields = {'slug': ('titulo',)}
 
     def get_form(self, request, obj=None, **kwargs):
         if not request.user.is_superuser:
